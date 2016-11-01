@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use DB;
-use Jenssegers\Mongodb\Model as Eloquent;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class Redeem extends Eloquent {
