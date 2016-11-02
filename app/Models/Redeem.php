@@ -15,7 +15,7 @@ class Redeem extends Eloquent {
 	protected $fillable     = array('_id','mobile','credit','status', 'user_id', 'points', 'prev');
 
     // Relationships
-	public function user() { return $this->hasOne('App\User', '_id', 'user_id'); }
+	public function user() { return $this->hasOne('App\Models\User', '_id', 'user_id'); }
 
     // Helper function to make _id in sequence
     public static function getNextSequence() {

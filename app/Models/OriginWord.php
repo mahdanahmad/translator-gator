@@ -14,6 +14,6 @@ class OriginWord extends Eloquent {
     protected $fillable     = array('origin_word','translated_counter','voted_counter','category_id');
 
     // Relationships
-	public function category_items() { return $this->belongsTo('App\CategoryItem'); }
-    public function translated_words() { return $this->hasMany('App\TranslatedWord'); }
+	public function category_items() { return $this->belongsTo('App\Models\CategoryItem'); }
+    public function translated_words() { return $this->hasMany('App\Models\TranslatedWord'); }
 }

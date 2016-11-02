@@ -14,7 +14,7 @@ class TranslatedWord extends Eloquent {
     protected $fillable     = array('origin_word_id', 'translated_to', 'language_id', 'user_id',  'categorized_counter', 'counter_voteup', 'counter_votedown', 'alternate_source');
 
     // Relationships
-	public function user() { return $this->belongsTo('App\User'); }
-	public function language() { return $this->belongsTo('App\Language'); }
-    public function origin_word() { return $this->belongsTo('App\OriginWord'); }
+	public function user() { return $this->belongsTo('App\Models\User'); }
+	public function language() { return $this->belongsTo('App\Models\Language'); }
+    public function origin_word() { return $this->belongsTo('App\Models\OriginWord'); }
 }

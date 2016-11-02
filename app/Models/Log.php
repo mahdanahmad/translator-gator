@@ -14,5 +14,5 @@ class Log extends Eloquent {
     protected $fillable     = array('action_type', 'user_id', 'raw_result', 'result', 'affected_user', 'translated_id');
 
     // Relationships
-	public function user() { return $this->belongsTo('App\User'); }
+	public function user() { return $this->belongsTo('App\Models\User'); }
 }

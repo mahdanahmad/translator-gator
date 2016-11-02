@@ -14,6 +14,6 @@ class Speaking extends Eloquent {
 	protected $fillable		= array('user_id', 'language_id', 'translated_counter', 'categorized_counter', 'voted_counter');
 
 	// Relationships
-    public function user() { return $this->belongsTo('App\User'); }
-    public function language() { return $this->belongsTo('App\Language'); }
+    public function user() { return $this->belongsTo('App\Models\User'); }
+    public function language() { return $this->belongsTo('App\Models\Language'); }
 }

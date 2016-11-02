@@ -1,0 +1,1 @@
+Welcome to PulseLab CrowdSource Translator. Please verify your Email Address by clicking this link : <?php echo URL::to('auth/confirm/' . $confirmationcode); ?>  or enter it manually on your browser adress bar.

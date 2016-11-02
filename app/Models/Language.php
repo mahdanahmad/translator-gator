@@ -14,6 +14,6 @@ class Language extends Eloquent {
 	protected $fillable		= array('language_name');
 
 	// Relationships
-	public function users() { return $this->belongsToMany('App\User','speaks','language_id','user_id'); }
-	public function translated_words() { return $this->hasMany('App\TranslatedWord'); }
+	public function users() { return $this->belongsToMany('App\Models\User','speaks','language_id','user_id'); }
+	public function translated_words() { return $this->hasMany('App\Models\TranslatedWord'); }
 }

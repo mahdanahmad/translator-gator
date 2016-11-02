@@ -1,0 +1,1 @@
+Please click this link : <?php echo URL::to('auth/reset/' . $resetCode); ?>  to reset your password. Note that this link only be able to be used one time. 

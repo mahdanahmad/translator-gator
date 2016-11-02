@@ -14,5 +14,5 @@ class CategoryItem extends Eloquent {
 	protected $fillable		= array('category_name', 'description', 'category_id');
 
 	// Relationships
-    public function category() { return $this->belongsTo('App\Category'); }
+    public function category() { return $this->belongsTo('App\Models\Category'); }
 }

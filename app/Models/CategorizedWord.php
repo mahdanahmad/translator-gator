@@ -14,5 +14,5 @@ class CategorizedWord extends Eloquent {
     protected $fillable     = array('translated_word_id', 'categorized_to', 'user_id');
 
     // Relationships
-    public function translated_word() { return $this->hasOne('App\TranslatedWord', '_id', 'translated_word_id'); }
+    public function translated_word() { return $this->hasOne('App\Models\TranslatedWord', '_id', 'translated_word_id'); }
 }

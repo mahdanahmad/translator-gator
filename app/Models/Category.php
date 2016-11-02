@@ -14,5 +14,5 @@ class Category extends Eloquent {
     protected $fillable     = array('category_group');
 
     // Relationships
-    public function category_items() { return $this->hasMany('App\CategoryItem'); }
+    public function category_items() { return $this->hasMany('App\Models\CategoryItem'); }
 }
