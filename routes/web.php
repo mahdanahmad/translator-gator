@@ -41,12 +41,12 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->get('config/action','ConfigurationController@getAction');
     $app->get('config/redeem','ConfigurationController@getRedeemTime');
 
-    // Languages, supposed to be admin only too..
+    // CRUD Languages
     $app->get('languages','LanguageController@index');
-    $app->get('languages/{id}','LanguageController@get');
-    $app->post('languages','LanguageController@create');
-    $app->put('languages/{id}','LanguageController@edit');
-    $app->delete('languages/{id}','LanguageController@delete');
+    $app->get('languages/{id}','LanguageController@show');
+    $app->post('languages','LanguageController@store');
+    $app->put('languages/{id}','LanguageController@update');
+    $app->delete('languages/{id}','LanguageController@destroy');
 
     // CategoryGroup and CategoryItem..
     $app->get('categories','CategoryController@getAllCategory');

@@ -247,7 +247,7 @@ class UserController extends Controller {
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Menyunting data anggota sukses.";
+        $message            = "Update user with id $id success.";
         $isError            = FALSE;
         $editedParams       = null;
 
