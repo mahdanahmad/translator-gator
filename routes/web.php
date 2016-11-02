@@ -35,11 +35,11 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('users/resetpassword','AuthController@resetpassword');
     $app->post('users/resetconfirmation','AuthController@resetconfirmation');
 
-    // Configurations, supposed to be admin only...
-    $app->get('config','ConfigurationController@getConfig');
+    // CRUD Configurations
+    $app->get('config','ConfigurationController@index');
+    $app->put('config','ConfigurationController@update');
     $app->get('config/action','ConfigurationController@getAction');
     $app->get('config/redeem','ConfigurationController@getRedeemTime');
-    $app->put('config','ConfigurationController@update');
 
     // Languages, supposed to be admin only too..
     $app->get('languages','LanguageController@index');

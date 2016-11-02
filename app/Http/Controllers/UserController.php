@@ -22,7 +22,7 @@ class UserController extends Controller {
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Listing all user success.";
+        $message            = "Retrieve all user success.";
         $isError            = FALSE;
         $missingParams      = null;
 
