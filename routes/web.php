@@ -48,15 +48,19 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->put('languages/{id}','LanguageController@update');
     $app->delete('languages/{id}','LanguageController@destroy');
 
-    // CategoryGroup and CategoryItem..
-    $app->get('categories','CategoryController@getAllCategory');
-    $app->get('categories/{id}','CategoryController@getCategoryItem');
-    $app->post('categories','CategoryController@createCategoryGroup');
-    $app->post('category_items','CategoryController@createCategoryItem');
-    $app->put('categories/{id}','CategoryController@updateCategoryGroup');
-    $app->post('category_items/{id}','CategoryController@updateCategoryItem');
-    $app->delete('categories/{id}','CategoryController@deleteCategoryGroup');
-    $app->delete('category_items/{id}','CategoryController@deleteCategoryItem');
+    // CRUD Categories
+    $app->get('categories','CategoryController@index');
+    $app->get('categories/{id}','CategoryController@show');
+    $app->post('categories','CategoryController@store');
+    $app->put('categories/{id}','CategoryController@update');
+    $app->delete('categories/{id}','CategoryController@destroy');
+
+    // CRUD Category Items
+    $app->get('categories/{category_id}/items','CategoryItemController@index');
+    $app->get('categories/{category_id}/items/{id}','CategoryItemController@show');
+    $app->post('categories/{category_id}/items','CategoryItemController@store');
+    $app->put('categories/{category_id}/items/{id}','CategoryItemController@update');
+    $app->delete('categories/{category_id}/items/{id}','CategoryItemController@destroy');
 
     // Origin Word Controller
     $app->get('originwords','OriginWordController@getAll');

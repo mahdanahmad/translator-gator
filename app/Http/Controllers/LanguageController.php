@@ -226,7 +226,7 @@ class LanguageController extends Controller {
                 if ($language) {
                     $language->delete();
                 } else {
-                    throw new \Exception("Languages with id $id not found.");
+                    throw new \Exception("Language with id $id not found.");
                 }
             } catch (\Exception $e) {
                 $response   = "FAILED";

@@ -8,18 +8,18 @@ use Illuminate\Http\Response;
 use App\Models\Category;
 use App\Models\CategoryItem;
 
-class CategoryController extends Controller {
+class CategoryItemController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index(Request $request) {
+    public function index(Request $request, $category_id) {
         $returnData         = array();
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Retrieve all category success.";
+        $message            = "Retrieve all category items from category $category_id success.";
         $isError            = FALSE;
         $missingParams      = null;
 
@@ -29,8 +29,9 @@ class CategoryController extends Controller {
 
         if (!$isError) {
             try {
-                $result     = Category::with('category_items')->take($limit)->skip($offset)->get();
-
+                if (Category::find($category_id)) {
+                    $result     = CategoryItem::where('category_id', $category_id)->take($limit)->skip($offset)->get();
+                } else { throw new \Exception("Category with id $category_id not found."); }
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
@@ -63,19 +64,20 @@ class CategoryController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
+    public function store(Request $request, $category_id) {
         $returnData         = array();
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Store new category success.";
+        $message            = "Store new category item for category $category_id success.";
         $isError            = FALSE;
         $missingParams      = null;
 
         $input              = $request->all();
-        $category_group     = (isset($input['category_group'])) ? $input['category_group'] : null;
+        $description        = (isset($input['description']))    ? $input['description']     : null;
+        $category_name      = (isset($input['category_name']))  ? $input['category_name']   : null;
 
-        if (!isset($category_group) || $category_group == '') { $missingParams[] = "category_group"; }
+        if (!isset($category_name) || $category_name == '') { $missingParams[] = "category_name"; }
 
         if (isset($missingParams)) {
             $isError    = TRUE;
@@ -86,17 +88,13 @@ class CategoryController extends Controller {
 
         if (!$isError) {
             try {
-                $category   = Category::create(array(
-                    'category_group' => $category_group
+                $categoryitem       = CategoryItem::create(array(
+                    'description'   => $description,
+                    'category_id'   => $category_id,
+                    'category_name' => $category_name,
                 ));
 
-                CategoryItem::create(array(
-                    'description'   => null,
-                    'category_id'   => $category->_id,
-                    'category_name' => 'other',
-                ));
-
-                $result     = array('_id' => $category->_id);
+                $result     = array('_id' => $categoryitem->_id);
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
@@ -120,19 +118,19 @@ class CategoryController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show($category_id, $id) {
         $returnData         = array();
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Retrive category with id $id success.";
+        $message            = "Retrive category with id $id from category $category_id success.";
         $isError            = FALSE;
         $missingParams      = null;
 
         if(!$isError) {
             try {
-                $result     = Category::with('category_items')->find($id);
-                if (!$result) { throw new \Exception("Category with id $id not found."); }
+                $result     = CategoryItem::where('category_id', $category_id)->where('_id', $id)->first();
+                if (!$result) { throw new \Exception("Category Item with id $id from Category $category_id not found."); }
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
@@ -167,33 +165,35 @@ class CategoryController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $category_id, $id) {
         $returnData         = array();
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Update category with id $id success.";
+        $message            = "Update category item with id $id from category $category_id success.";
         $isError            = FALSE;
         $editedParams       = null;
 
         $input              = $request->all();
-        $category_group     = (isset($input['category_group'])) ? $input['category_group'] : null;
+        $description        = (isset($input['description']))    ? $input['description']     : null;
+        $category_name      = (isset($input['category_name']))  ? $input['category_name']   : null;
 
         if (!$isError) {
             try {
-                $category   = Category::find($id);
-                if ($category) {
-                    if (isset($category_group) && $category_group !== '') { $editedParams[] = "category_group"; $category->category_group = $category_group; }
+                $categoryitem   = CategoryItem::find($id);
+                if ($categoryitem) {
+                    if (isset($description) && $description !== '') { $editedParams[] = "description"; $categoryitem->description = $description; }
+                    if (isset($category_name) && $category_name !== '') { $editedParams[] = "category_name"; $categoryitem->category_name = $category_name; }
 
                     if (isset($editedParams)) {
-                        $category->save();
+                        $categoryitem->save();
 
                         $message    = $message." Changed data : {".implode(', ', $editedParams)."}";
                     } else {
                         $message    = $message." No data changed.";
                     }
                 } else {
-                    throw new \Exception("Category with id $id not found.");
+                    throw new \Exception("Category Item with id $id from Category $category_id not found.");
                 }
             } catch (\Exception $e) {
                 $response   = "FAILED";
@@ -218,23 +218,22 @@ class CategoryController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($category_id, $id) {
         $returnData         = array();
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Delete category with id $id success.";
+        $message            = "Delete category item with id $id from category $category_id success.";
         $isError            = FALSE;
         $missingParams      = null;
 
         if (!$isError) {
             try {
-                $category   = Category::find($id);
-                if ($category) {
-                    CategoryItem::where('category_id', $id)->each(function($o) { $o->delete(); });
-                    $category->delete();
+                $categoryitem   = CategoryItem::find($id);
+                if ($categoryitem) {
+                    if ($categoryitem->category_name != 'other') { $categoryitem->delete(); } else { throw new \Exception("Can't delete other from category $category_id."); }
                 } else {
-                    throw new \Exception("Category with id $id not found.");
+                    throw new \Exception("Category Item with id $id from Category $category_id not found.");
                 }
             } catch (\Exception $e) {
                 $response   = "FAILED";
