@@ -81,8 +81,10 @@ $app->singleton(
 $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-
 $app->register('Jenssegers\Mongodb\MongodbServiceProvider');
+$app->register('Maatwebsite\Excel\ExcelServiceProvider');
+
+class_alias('Maatwebsite\Excel\Facades\Excel', 'Excel');
 
 $app->withEloquent();
 

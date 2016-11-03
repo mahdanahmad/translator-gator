@@ -62,10 +62,10 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->put('categories/{category_id}/items/{id}','CategoryItemController@update');
     $app->delete('categories/{category_id}/items/{id}','CategoryItemController@destroy');
 
-    // Origin Word Controller
-    $app->get('originwords','OriginWordController@getAll');
+    // Origin Words
+    $app->get('originwords','OriginWordController@index');
     $app->get('originwords/random','OriginWordController@getRandom');
-    $app->post('originwords','OriginWordController@create');
+    $app->post('originwords','OriginWordController@store');
 
     // API Terkait fungsi Translate
     $app->get('translatedwords','TranslatedWordController@getAll');
@@ -88,13 +88,6 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
     // API terkait Export
     $app->get('export','TranslatedWordController@export');
-
-    $app->get('debug', 'debugController@debug');
-    $app->get('down', 'debugController@downdown');
-    $app->post('debug', 'debugController@uploadfile');
-    $app->get('debug/mail/{username}','debugController@tesmail');
-    $app->get('debug/stats','debugController@statistic');
-    $app->get('debug/export','debugController@export');
 
     // API terkait Redeem
     $app->get('redeem', 'RedeemController@index');
