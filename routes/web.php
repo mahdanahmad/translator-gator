@@ -63,25 +63,18 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->delete('categories/{category_id}/items/{id}','CategoryItemController@destroy');
 
     // Origin Words
-    $app->get('originwords','OriginWordController@index');
-    $app->get('originwords/random','OriginWordController@getRandom');
+    // $app->get('originwords','OriginWordController@index');
+    // $app->get('originwords/random','OriginWordController@getRandom');
     $app->post('originwords','OriginWordController@store');
 
-    // API Terkait fungsi Translate
-    $app->get('translatedwords','TranslatedWordController@getAll');
-    $app->post('translatedwords','TranslatedWordController@create');
-    $app->get('untranslated','TranslatedWordController@getNextUntranslatedWord');
-
-    // API terkait Alternate
-    $app->get('alternatewords/{user_id}','TranslatedWordController@getNextAlternateWord'); // Catatan : untuk menambahkan alternate words, gunakan endpoint api yang sama dengan create translatated words (method post pada /translate_Words)
-
-    // API terkait dengan Vote
-    $app->get('votewords/{user_id}','TranslatedWordController@getNextVoteWord');
-    $app->post('votewords','TranslatedWordController@create_vote_word');
-
-    // API terkait dengan category
-    $app->get('categorizewords/{user_id}','TranslatedWordController@getNextUncategorized');
-    $app->post('categorizewords/','TranslatedWordController@create_categorized_word');
+    // End point for game purpose
+    $app->get('untranslated','GameController@getUntranslated');
+    $app->get('votewords/{user_id}','GameController@getNextVote');
+    $app->get('alternatewords/{user_id}','GameController@getNextAlternate');
+    $app->get('categorizewords/{user_id}','GameController@getNextCategorize');
+    $app->post('votewords','GameController@storeVote');
+    $app->post('translatedwords','GameController@storeTranslated');
+    $app->post('categorizewords','GameController@storeCategorize');
 
     // API terkait statistik
     $app->get('stats','TranslatedWordController@statistic');

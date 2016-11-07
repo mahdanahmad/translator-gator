@@ -29,7 +29,6 @@ class LanguageController extends Controller {
         if (!$isError) {
             try {
                 $result     = Language::take($limit)->skip($offset)->get();
-
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
