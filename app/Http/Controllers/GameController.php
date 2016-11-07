@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Language;
 use App\Models\Speaking;
 use App\Models\OriginWord;
+use App\Models\CategoryItem;
 use App\Models\Configuration;
 use App\Models\TranslatedWord;
 use App\Models\CategorizedWord;
@@ -272,7 +273,7 @@ class GameController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store vote result from user.
      *
      * @param  Request  $request
      * @return Response
@@ -282,14 +283,16 @@ class GameController extends Controller {
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Retrive language with id $id success.";
+        $message            = "Store new vote word success.";
         $isError            = FALSE;
         $missingParams      = null;
 
         $input              = $request->all();
-        $language_name      = (isset($input['language_name'])) ? $input['language_name'] : null;
+        $user_id            = (isset($input['user_id']))    ? $input['user_id'] : null;
+        $raw_votes          = (isset($input['votes']))      ? $input['votes']   : null;
 
-        if (!isset($language_name) || $language_name == '') { $missingParams[] = "language_name"; }
+        if (!isset($user_id) || $user_id == '') { $missingParams[] = "user_id"; }
+        if (!isset($raw_votes) || $raw_votes == '') { $missingParams[] = "votes"; }
 
         if (isset($missingParams)) {
             $isError    = TRUE;
@@ -300,7 +303,84 @@ class GameController extends Controller {
 
         if(!$isError) {
             try {
+                $user   = User::find($user_id);
+                if ($user) {
+                    $votes  = json_decode($raw_votes);
+                    if (is_array($votes)) {
+                        $config = Configuration::first();
 
+                        $counter_point  = 0;
+                        foreach ($votes as $vote) {
+                            $translated_word    = TranslatedWord::find($vote->translated_id);
+                            if ($translated_word) {
+                                if ($vote->action == 'voteup') {
+                                    $translated_word->increment('counter_voteup');
+                                    $user->increment('point', $config->voter_point);
+
+                                    $translator = User::find($translated_word->user_id);
+                                    $translator->increment('point', $config->vote_up_point);
+
+                                    Log::create(array(
+                                        'result'        => $user->point,
+                                        'user_id'       => $user_id,
+                                        'action_type'   => 'vote_up',
+                                        'translated_id' => $vote->translated_id,
+                                        'affected_user' => $translated_word->user_id,
+                                    ));
+
+                                    Log::create(array(
+                                        'result'        => $translator->point,
+                                        'user_id'       => $translator->_id,
+                                        'action_type'   => 'voted by another user',
+                                        'translated_id' => $vote->translated_id,
+                                        'affected_user' => $user_id,
+                                    ));
+
+                                    $counter_point += $config->voter_point;
+                                    if ($translated_word->user_id == $user_id) { $counter_point += $config->vote_up_point; }
+                                } else if ($vote->action == 'votedown') {
+                                    $translated_word->increment('counter_votedown');
+                                    $user->increment('point', $config->voter_point);
+
+                                    $translator = User::find($translated_word->user_id);
+                                    $translator->decrement('point', $config->vote_up_point);
+
+                                    if (\time() < \strtotime($translator->last_kicked)) {
+                                        // do nothing while the translator being kicked out.
+                                    } else if ($translator->health > 1) {
+                                        $translator->decrement('health');
+                                    } else if ($translator->health == 1) {
+                                        $translator->health       = $config->max_health;
+                                        $translator->last_kicked  = \date(DATE_RFC2822, \strtotime('+'.$config->kick_time.' minute'));
+                                    }
+
+                                    $translator->save();
+
+                                    Log::create(array(
+                                        'result'        => $user->point,
+                                        'user_id'       => $user_id,
+                                        'action_type'   => 'vote_down',
+                                        'translated_id' => $vote->translated_id,
+                                        'affected_user' => $translator->_id,
+                                    ));
+
+                                    Log::create(array(
+                                        'result'        => $translator->point,
+                                        'user_id'       => $translator->_id,
+                                        'action_type'   => 'voted by another user',
+                                        'translated_id' => $vote->translated_id,
+                                        'affected_user' => $user_id,
+                                    ));
+
+                                    $counter_point += $config->voter_point;
+                                    if ($translated_word->user_id == $user_id) { $counter_point -= $config->vote_up_point; }
+                                }
+                            }
+                        }
+
+                        $result = $counter_point;
+                    } else { throw new \Exception("Error parsing votes."); }
+                } else { throw new \Exception("User with id $user_id not found."); }
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
@@ -416,7 +496,7 @@ class GameController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store categorized word from user.
      *
      * @param  Request  $request
      * @return Response
@@ -426,14 +506,18 @@ class GameController extends Controller {
         $response           = "OK";
         $statusCode         = 200;
         $result             = null;
-        $message            = "Retrive language with id $id success.";
+        $message            = "Store new catagorized word success.";
         $isError            = FALSE;
         $missingParams      = null;
 
         $input              = $request->all();
-        $language_name      = (isset($input['language_name'])) ? $input['language_name'] : null;
+        $user_id            = (isset($input['user_id']))        ? $input['user_id']         : null;
+        $translated_id      = (isset($input['translated_id']))  ? $input['translated_id']   : null;
+        $raw_categories     = (isset($input['categories']))     ? $input['categories']      : null;
 
-        if (!isset($language_name) || $language_name == '') { $missingParams[] = "language_name"; }
+        if (!isset($user_id) || $user_id == '') { $missingParams[] = "user_id"; }
+        if (!isset($translated_id) || $translated_id == '') { $missingParams[] = "translated_id"; }
+        if (!isset($raw_categories) || $raw_categories == '') { $missingParams[] = "categories"; }
 
         if (isset($missingParams)) {
             $isError    = TRUE;
@@ -444,7 +528,37 @@ class GameController extends Controller {
 
         if(!$isError) {
             try {
+                $user   = User::find($user_id);
+                if ($user) {
+                    $categories = json_decode($raw_categories);
+                    if (is_array($categories)) {
+                        $translatedwords    = TranslatedWord::find($translated_id);
+                        if ($translatedwords) {
+                            $submitted_categories   = CategoryItem::whereIn('_id', $categories)->get()->pluck('_id')->toArray();
+                            if (!empty($submitted_categories)) {
+                                $config             = Configuration::first();
 
+                                CategorizedWord::create(array(
+                                    'user_id'               => $user_id,
+                                    'categorized_to'        => $submitted_categories,
+                                    'translated_word_id'    => $translated_id,
+                                ));
+
+                                $translatedwords->increment('categorized_counter');
+                                $user->increment('point', $config->categorize_point);
+
+                                Log::create(array(
+                                    'result'        => $user->point,
+                                    'user_id'       => $user->_id,
+                                    'action_type'   => 'categorize',
+                                    'translated_id' => $translated_id,
+                                ));
+
+                                $result = $config->categorize_point;
+                            } else { $result = 0; }
+                        } else { throw new \Exception("Translated word with id $translated_id not found."); }
+                    } else { throw new \Exception("Error parsing translation."); }
+                } else { throw new \Exception("User with id $user_id not found."); }
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
