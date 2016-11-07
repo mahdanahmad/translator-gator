@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-use App\User;
-use App\Redeem;
-use App\Configuration;
+use App\Models\User;
+use App\Models\Redeem;
+use App\Models\Configuration;
 
 class RedeemController extends Controller {
     /**
@@ -31,7 +31,6 @@ class RedeemController extends Controller {
         if (!$isError) {
             try {
                 $result     = Redeem::with(array('user'))->orderBy('created_at', 'DESC')->take($limit)->skip($offset)->get();
-
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
@@ -46,7 +45,7 @@ class RedeemController extends Controller {
             'result'        => $result
         );
 
-        return  response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
+        return response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
     }
 
     /**
@@ -78,15 +77,9 @@ class RedeemController extends Controller {
         $credit             = (isset($input['credit']))     ? $input['credit']  : null;
         $user_id            = (isset($input['user_id']))    ? $input['user_id'] : null;
 
-        if (!isset($mobile) || $mobile == '') {
-            $missingParams[] = "mobile";
-        }
-        if (!isset($credit) || $credit == '') {
-            $missingParams[] = "credit";
-        }
-        if (!isset($user_id) || $user_id == '') {
-            $missingParams[] = "user_id";
-        }
+        if (!isset($mobile) || $mobile == '') { $missingParams[] = "mobile"; }
+        if (!isset($credit) || $credit == '') { $missingParams[] = "credit"; }
+        if (!isset($user_id) || $user_id == '') { $missingParams[] = "user_id"; }
 
         if (isset($missingParams)) {
             $isError    = TRUE;
@@ -98,12 +91,12 @@ class RedeemController extends Controller {
         if (!$isError) {
             try {
                 $user   = User::find($user_id);
-                $config = Configuration::first();
                 if ($user) {
+                    $config = Configuration::first();
                     if ($user->point * $config->point_value > $credit) {
                         $consumedpoint  = ceil($credit / $config->point_value);
 
-                        $redeem = Redeem::create(array(
+                        $redeem         = Redeem::create(array(
                             '_id'       => Redeem::getNextSequence(),
                             'mobile'    => "".$mobile,
                             'credit'    => $credit + 0,
@@ -113,9 +106,7 @@ class RedeemController extends Controller {
                             'prev'      => $user->point,
                         ));
 
-                        $user->point    = $user->point - $consumedpoint;
-                        $user->save();
-
+                        $user->decrement('point', $consumedpoint);
                         $result         = $user->point;
                     } else {
                         throw new \Exception("User with id $user_id didn't have enough points.");
@@ -137,7 +128,7 @@ class RedeemController extends Controller {
             'result'        => $result
         );
 
-        return  response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
+        return response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
     }
 
     /**
@@ -158,7 +149,6 @@ class RedeemController extends Controller {
         if (!$isError) {
             try {
                 $user = User::find($id);
-
                 if ($user) {
                     $result = Redeem::where('user_id', $id)->orderBy('created_at', 'DESC')->get();
                 } else {
@@ -179,7 +169,7 @@ class RedeemController extends Controller {
             'result'        => $result
         );
 
-        return  response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
+        return response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
     }
 
     /**
@@ -237,9 +227,7 @@ class RedeemController extends Controller {
 
         if (!$isError) {
             try {
-                $extension  = $data->getClientOriginalExtension();
-
-                if ($extension == 'csv') {
+                if (strtolower($data->getClientOriginalExtension()) == 'csv') {
                     $status = \Excel::load($data)->toArray();
 
                     foreach ($status as $key => $value) {
@@ -265,6 +253,6 @@ class RedeemController extends Controller {
             'result'        => $result
         );
 
-        return  response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
+        return response()->json($returnData, $statusCode)->header('access-control-allow-origin', '*');
     }
 }

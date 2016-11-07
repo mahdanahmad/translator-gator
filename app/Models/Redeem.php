@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DB;
+use \MongoDB\Operation\FindOneAndUpdate;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
@@ -19,13 +20,12 @@ class Redeem extends Eloquent {
 
     // Helper function to make _id in sequence
     public static function getNextSequence() {
-        $result = DB::getCollection('counters')->findAndModify(
+        $result = DB::getCollection('counters')->findOneAndUpdate(
             array('_id' => 'transaction_id'),
             array('$inc' => array('seq' => 1)),
-            null,
-            array('new' => true, 'upsert' => true)
-       );
+            array('new' => true, 'upsert' => true, 'returnDocument' => FindOneAndUpdate::RETURN_DOCUMENT_AFTER)
+        );
 
-        return $result['seq'];
+        return $result->seq;
     }
 }
