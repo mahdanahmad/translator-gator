@@ -76,13 +76,10 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('translatedwords','GameController@storeTranslated');
     $app->post('categorizewords','GameController@storeCategorize');
 
-    // API terkait statistik
     $app->get('stats','TranslatedWordController@statistic');
-
-    // API terkait Export
     $app->get('export','TranslatedWordController@export');
 
-    // API terkait Redeem
+    // CRUD Redeem
     $app->get('redeem', 'RedeemController@index');
     $app->post('redeem', 'RedeemController@store');
     $app->get('redeem/{id}', 'RedeemController@show');

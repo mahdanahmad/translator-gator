@@ -17,4 +17,5 @@ class TranslatedWord extends Eloquent {
 	public function user() { return $this->belongsTo('App\Models\User'); }
 	public function language() { return $this->belongsTo('App\Models\Language'); }
     public function origin_word() { return $this->belongsTo('App\Models\OriginWord'); }
+    public function categorized_word() { return $this->hasMany('App\Models\CategorizedWord', 'translated_word_id', '_id'); }
 }

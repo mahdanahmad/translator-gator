@@ -83,7 +83,7 @@ class GameController extends Controller {
                 if ($user) {
                     $config = Configuration::first();
 
-                    $language_available = TranslatedWord::whereIn('language_id', $user->languages)->get()->unique('language_id')->pluck('language_id')->toArray();
+                    $language_available = TranslatedWord::whereIn('language_id', $user->languages)->groupBy('language_id')->get()->pluck('language_id')->toArray();
                     if (!empty($language_available)) {
                         $selected_language  = $language_available[array_rand($language_available)];
                         $data               = TranslatedWord::raw(function($collection) use($selected_language, $config) {
@@ -152,7 +152,7 @@ class GameController extends Controller {
                 if ($user) {
                     $config = Configuration::first();
 
-                    $language_available = TranslatedWord::whereIn('language_id', $user->languages)->get()->unique('language_id')->pluck('language_id')->toArray();
+                    $language_available = TranslatedWord::whereIn('language_id', $user->languages)->groupBy('language_id')->get()->pluck('language_id')->toArray();
                     if (!empty($language_available)) {
                         $selected_language  = $language_available[array_rand($language_available)];
                         $data               = TranslatedWord::raw(function($collection) use($selected_language, $config) {
@@ -221,7 +221,7 @@ class GameController extends Controller {
                 if ($user) {
                     $config = Configuration::first();
 
-                    $language_available = TranslatedWord::whereIn('language_id', $user->languages)->get()->unique('language_id')->pluck('language_id')->toArray();
+                    $language_available = TranslatedWord::whereIn('language_id', $user->languages)->groupBy('language_id')->get()->pluck('language_id')->toArray();
                     if (!empty($language_available)) {
                         $data               = TranslatedWord::raw(function($collection) use($language_available, $config) {
                             return $collection->aggregate(array(

@@ -58,15 +58,15 @@ return array(
     ),
 
     'properties' => array(
-        'creator'        => 'Maatwebsite',
-        'lastModifiedBy' => 'Maatwebsite',
-        'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
-        'subject'        => 'Spreadsheet export',
-        'keywords'       => 'maatwebsite, excel, export',
-        'category'       => 'Excel',
-        'manager'        => 'Maatwebsite',
-        'company'        => 'Maatwebsite',
+        'creator'        => 'Pulselab Jakarta',
+        'lastModifiedBy' => 'Mahdan Ahmad Fauzi Al Hasan',
+        'title'          => 'Exported Translated Word',
+        'description'    => '',
+        'subject'        => '',
+        'keywords'       => '',
+        'category'       => '',
+        'manager'        => '',
+        'company'        => '',
     ),
 
     /*

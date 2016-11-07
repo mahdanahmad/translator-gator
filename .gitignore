@@ -3,5 +3,6 @@
 Homestead.json
 Homestead.yaml
 .env
+/public/exports
 /public/resources/temp
 .DS_Store

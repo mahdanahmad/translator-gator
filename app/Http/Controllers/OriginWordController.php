@@ -86,7 +86,7 @@ class OriginWordController extends Controller {
             try {
                 if (strtolower($origin_files->getClientOriginalExtension()) == 'csv') {
                     OriginWord::insert(array_map(function($o) { return array('origin_word' => $o[1]); }, \Excel::load($origin_files, function($reader) { $reader->noHeading(); })->toArray()));
-                } else { throw new Exception("The uploaded file must be a csv."); }
+                } else { throw new \Exception("The uploaded file must be a csv."); }
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
