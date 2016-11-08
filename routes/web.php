@@ -11,12 +11,55 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->get('/', function () {
+    return view('index');
+});
+
+$app->group(['prefix' => 'views'], function () use ($app) {
+    $app->get('auth', function () {return view('auth.auth');});
+    $app->get('login', function () {return view('auth.login');});
+    $app->get('logout', function () {return view('auth.logout');});
+    $app->get('register', function () {return view('auth.register');});
+    $app->get('forgot', function () {return view('auth.forgot');});
+    $app->get('reset', function () {return view('auth.reset');});
+    $app->get('confirm', function () {return view('auth.confirm');});
+    $app->get('unconfirmed', function () {return view('auth.unconfirmed');});
+
+    $app->get('dashboard', function () {return view('dashboard.dashboard');});
+    $app->get('vote', function () {return view('dashboard.vote');});
+    $app->get('hint', function () {return view('dashboard.hint');});
+    $app->get('drift', function () {return view('dashboard.drift');});
+    $app->get('kicked', function () {return view('dashboard.kicked');});
+    $app->get('redeem', function () {return view('dashboard.redeem');});
+    $app->get('newuser', function () {return view('dashboard.newuser');});
+    $app->get('profile', function () {return view('dashboard.profile');});
+    $app->get('translate', function () {return view('dashboard.translate');});
+    $app->get('categorize', function () {return view('dashboard.categorize');});
+    $app->get('alternative', function () {return view('dashboard.alternative');});
+
+    $app->get('admin', function () {return view('admin.admin');});
+    $app->get('words', function () {return view('admin.words');});
+    $app->get('general', function () {return view('admin.general');});
+    $app->get('category', function () {return view('admin.category');});
+    $app->get('language', function () {return view('admin.language');});
+    $app->get('statistic', function () {return view('admin.statistic');});
+    $app->get('redeemAdmin', function () {return view('admin.redeem');});
+
+    $app->get('details', function () {return view('template.details');});
+    $app->get('firsthint', function () {return view('template.1stHint');});
+    $app->get('secondhint', function () {return view('template.2ndHint');});
+    $app->get('thirdhint', function () {return view('template.3rdHint');});
+    $app->get('fourthhint', function () {return view('template.4thHint');});
+    $app->get('fifthhint', function () {return view('template.5thHint');});
+    $app->get('sixthhint', function () {return view('template.6thHint');});
+    $app->get('redeemslide', function () {return view('template.redeem');});
+    $app->get('historyslide', function () {return view('template.history');});
+    $app->get('leaderboard', function () {return view('template.leaderboard');});
+
+    $app->get('notification', function () {return view('notification');});
 });
 
 $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
-
     // CRUD User
     $app->get('users','UserController@index');
     $app->get('users/{id}','UserController@show');
