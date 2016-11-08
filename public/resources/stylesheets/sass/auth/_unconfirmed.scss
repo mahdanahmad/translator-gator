@@ -1,0 +1,30 @@
+#unconfirmed-container {
+    padding-top: 10%;
+    .unconfirmed_head {
+        text-align: center;
+        font-size: 28px;
+        font-family: 'TradeGothic-Bold';
+        padding: 10px 20px;
+        border: 2px solid white;
+        border-radius: 8px!important;
+        margin-bottom: 30px;
+    }
+    .unconfirmed_message {
+        font-family: 'TradeGothic-CondEighteen';
+        font-size: 17px;
+        padding: 0px 20px 0px 20px;
+        text-align: justify;
+        & > li { margin-bottom: 25px; }
+    }
+    .btn-unconfirmed-back {
+        margin: 20px 25% 0px 25%!important;
+        background: #006F99;
+        width: 50%;
+        display: inline-block;
+        margin: 0px;
+        border: 2px solid #006F99;
+        padding: 10px 0px;
+        border-radius: 5px!important;
+        color: white!important;
+    }
+}

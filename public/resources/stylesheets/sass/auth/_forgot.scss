@@ -1,0 +1,65 @@
+#forgot-container {
+    padding-top: 8%;
+    .forgot_head {
+        font-size: 25px;
+        text-align: center;
+        margin-top: 50px;
+        font-family: 'TradeGothic-CondEighteen';
+    }
+    form {
+        & > input#email {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 5px!important;
+            outline: none;
+            color: black;
+            font-size: 15px;
+            margin: 25px 0px 10px 0px;
+            height: 50px!important;
+        }
+        div.form-button {
+            margin-top: 10px;
+            button.btn-forgot-cancel, button.btn-forgot-resend {
+                width: 50%;
+                float: left;
+                display: inline-block;
+                margin: 0px;
+                border: 2px solid #006F99;
+                padding: 10px 0px;
+                &:hover { color: white!important; }
+            }
+            button.btn-forgot-cancel {
+                background: rgba(0,0,0,0);
+                border-top-left-radius: 5px!important;
+                border-bottom-left-radius: 5px!important;
+                color: white!important;
+            }
+            button.btn-forgot-resend {
+                background: #006F99;
+                border-top-right-radius: 5px!important;
+                border-bottom-right-radius: 5px!important;
+                color: white!important;
+            }
+        }
+        .auth-error { @include error-on-auth(); }
+    }
+    div.success_message{
+        background-color: rgba(0,0,0,.1);
+        text-align: center;
+        border-radius: 8px!important;
+        font-family: 'TradeGothic-CondEighteen';
+        font-size: 18px;
+        padding: 30px 20px;
+    }
+    button.btn-forgot-back {
+        margin: 20px 25% 0px 25%!important;
+        background: #006F99;
+        width: 50%;
+        display: inline-block;
+        margin: 0px;
+        border: 2px solid #006F99;
+        padding: 10px 0px;
+        border-radius: 5px!important;
+        color: white!important;
+    }
+}

@@ -1,0 +1,76 @@
+@mixin firsthint() {
+    @media (min-width: $width-treshold) { height: 410px; cursor: default; }
+    @media (max-width: $width-treshold) { height: 75vh; cursor: default; }
+    #firsthint {
+        #firstcontent { font-size: 16px; text-align: justify; }
+        img#first-img { width: 75%; margin: auto; display: block; margin-bottom: 20px; & > div { margin-bottom: 20px; }}
+    }
+}
+@mixin secondhint() {
+    @media (min-width: $width-treshold) { height: 390px; cursor: default; }
+    @media (max-width: $width-treshold) { height: calc(75vh - 20px); cursor: default; }
+    #secondhint {
+        #secondcontent {
+            font-size: 16px; text-align: justify;
+            & > div { margin-bottom: 20px; &.red-alert { color: #FFFFFF; font-weight: bold; }}
+        }
+    }
+}
+@mixin thirdhint() {
+    @media (min-width: $width-treshold) { height: 350px; cursor: default; }
+    @media (max-width: $width-treshold) { height: calc(75vh - 60px); cursor: default; }
+    #thirdhint {
+        position: relative;
+        #thirdcontent {
+            font-size: 16px; text-align: justify;
+            & > div { margin-bottom: 15px; &.floor span.red-alert { color: #FFFFFF; font-weight: bold; }}
+            .ceil { width: 75%; margin: auto; margin-bottom: 15px; }
+            .floor { margin-top: 25px; }
+        }
+        img#thirdArrow { width: 30%; position: absolute; left: -30px; top: -15px; }
+        img#thirdBattery { width: 45%; margin: auto; display: block; }
+    }
+}
+@mixin fourthhint() {
+    @media (min-width: $width-treshold) { height: 350px; cursor: default; }
+    @media (max-width: $width-treshold) { height: calc(75vh - 60px); cursor: default; }
+    #fourthhint {
+        position: relative;
+        #fourthcontent {
+            font-size: 16px; text-align: justify; margin-top: 10px;
+            & > div { margin-bottom: 15px; }
+        }
+        img#fourthArrow { width: 30%; position: absolute; right: -30px; }
+        & > div#fourthPoint {
+            display: table; margin: auto; text-align: center;
+            & > span#floor { display: block; font-size: 40px; }
+            & > span#ceil { display: block; font-size: 100px; font-family: 'TradeGothic-Bold'; height: 85px; line-height: 85px; }
+        }
+    }
+}
+@mixin fifthhint() {
+    @media (min-width: $width-treshold) { height: 390px; cursor: default; }
+    @media(max-width: $width-treshold) { height: calc(75vh - 20px); cursor: default; }
+    #fifthhint {
+        #fifthcontent {
+            font-size: 16px; text-align: justify;
+            & > div { margin-bottom: 20px; }
+        }
+    }
+}
+@mixin sixthhint() {
+    @media (min-width: $width-treshold) { height: 390px; cursor: default; }
+    @media (max-width: $width-treshold) { height: calc(75vh - 20px); cursor: default; }
+    #sixthhint {
+        #sixthcontent {
+            font-size: 16px; text-align: justify;
+            & > div { margin-bottom: 20px; }
+        }
+    }
+}
+@mixin leaderboard() {
+    padding-top: 30px;
+    @media (min-width: $width-treshold) { height: 410px; cursor: default; }
+    @media (max-width: $width-treshold) { height: 75vh; cursor: default; }
+    .split-container { @include split-container('leader'); }
+}

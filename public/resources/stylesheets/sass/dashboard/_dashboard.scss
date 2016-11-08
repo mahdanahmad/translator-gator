@@ -1,0 +1,45 @@
+@import "newuser";
+
+#page-dash {
+    position: relative;
+    #dash-header {
+        padding: 15px;
+        #battery-header {
+            float: left;
+            position: relative;
+            display: inline-block;
+            #image-container, #color-container {
+                width: 90px;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+            #image-container { padding: 15px; z-index: 8228; }
+            #color-container {
+                padding: 18px 20px 18px 18px;
+                .battery-color {
+                    width: 33%;
+                    height: 100%;
+                    display: inline-block;
+                    float: left;
+                }
+                &.red-battery .battery-color { background-color: $battery-red; }
+                &.yellow-battery .battery-color { background-color: $battery-yellow; }
+                &.green-battery .battery-color { background-color: $battery-green; }
+            }
+        }
+    }
+    #points-header {
+        float: right;
+        display: inline-block;
+        span#ceil { font-family: 'TradeGothic-Bold'; font-size: 35px; }
+        span#floor { font-size: 22px; }
+        span#ceil, span#floor { display: block; text-align: right; height: 35px; cursor: default; }
+    }
+    #dash-navigation {
+        @media (max-width: $width-treshold) { width: 100%; padding-bottom: 20px; }
+        @media (min-width: $width-treshold) { bottom: 15px; position: absolute; width: 100%; right: 0px; }
+        #exit-nav { @include navigation('exit'); }
+        #default-nav { @include navigation('default'); }
+    }
+}

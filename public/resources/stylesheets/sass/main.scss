@@ -1,30 +1,33 @@
 @import "statics";
 @import "mixins";
 
+@import "auth/auth";
+@import "dashboard/dashboard";
+
 @font-face {
     font-family: "TradeGothic-Bold";
-    src: url(../fonts/TradeGothic-Bold.ttf) format("truetype");
+    src: url(/resources/fonts/TradeGothic-Bold.ttf) format("truetype");
 }
 @font-face {
     font-family: "TradeGothic-CondEighteen";
-    src: url(../fonts/TradeGothic-CondEighteen.ttf) format("truetype");
+    src: url(/resources/fonts/TradeGothic-CondEighteen.ttf) format("truetype");
 }
 @font-face {
     font-family: "TradeGothic-LightOblique";
-    src: url(../fonts/TradeGothic-LightOblique.ttf) format("truetype");
+    src: url(/resources/fonts/TradeGothic-LightOblique.ttf) format("truetype");
 }
-
+a { cursor: pointer; }
+img { max-width: 100%; height: auto; }
+textarea { resize: none; }
 .transition {
     -moz-transition: all 0.27s ease-out;
     -webkit-transition: all 0.27s ease-out;
     transition: all 0.27s ease-out;
 }
-
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
 }
-
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -32,4 +35,33 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+#page-auth, #page-dash {
+    background-color: $def-background;
+    color: white;
+    @media (min-width: $width-treshold) {
+        width: 550px;
+        min-height: 550px;
+        margin: auto;
+        margin-top: calc(50vh - 275px);
+        border-radius: 20px!important;
+    }
+    @media (max-width: $width-treshold) {
+        width: 100vw;
+        min-height: 100vh;
+    }
+}
+@media (max-width: $width-treshold) {
+    #page-auth {
+        padding-top: 8vh!important;
+    }
+    #page-dash {
+        padding-top: 2vh!important;
+    }
+}
+.ui-notification {
+    border-radius: 10px;
+    text-align: center;
+    padding: 25px 20px;
+    z-index: 10000;
 }

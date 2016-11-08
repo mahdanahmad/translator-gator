@@ -1,0 +1,33 @@
+#register-container {
+    padding: 0px 5%;
+    padding-top: 5%;
+    .header-wrapper {
+        width: 85%;
+        margin: auto;
+        .header_logo > img { width: 50%; margin-bottom: 20px; }
+    }
+    .form-register-container {
+        width: 85%;
+        margin: auto;
+        form {
+            .form-auth { @include auth-form(); };
+            .auth-error { @include error-on-auth(); }
+            .form-submit { @include submit-on-auth(); }
+            .languange-chooser {
+                padding: 20px;
+                & > strong { font-size: 15px; }
+                #language_picker {
+                    padding: 10px 0px 0px 0px;
+                    label {
+                        cursor: pointer;
+                        display: block;
+                        white-space: nowrap;
+                        input { margin: 0px; vertical-align: middle; }
+                        span { text-transform: capitalize; vertical-align: middle; }
+                    }
+                }
+            }
+
+        }
+    }
+}

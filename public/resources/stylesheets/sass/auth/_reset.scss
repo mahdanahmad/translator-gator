@@ -1,0 +1,28 @@
+#reset-container {
+    padding-top: 10%;
+    .reset_head {
+        font-size: 25px;
+        text-align: center;
+        margin-top: 50px;
+        font-family: 'TradeGothic-CondEighteen';
+    }
+    form {
+        .form-auth { @include auth-form(); margin: 25px 0px 10px 0px; }
+        .auth-error { @include error-on-auth(); }
+        .form-button {
+            margin-top: 10px;
+            .btn-reset-change {
+                width: 50%;
+                display: block;
+                margin: auto;
+                border: 2px solid #006F99;
+                padding: 10px 0px;
+                background: #006F99;
+                border-radius: 5px!important;
+                color: white!important;
+                margin-top: 25px;
+                &:hover { color: white!important; }
+            }
+        }
+    }
+}

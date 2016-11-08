@@ -142,10 +142,12 @@ class UserController extends Controller {
                             }
 
                             $result = array('_id' => $user->_id);
-                            Mail::send('emails.confirmation', ['confirmationcode'=>$confirmationcode], function($m) use ($email, $username) {
-                                $m->from(env('MAIL_ADDRESS','translator-gator@pulselab.com'), env('MAIL_NAME','Translator-gator'));
-                                $m->to($email, $username)->subject(env('MAIL_SUBJECT','Translator-gator Confirmation'));
-                            });
+                            if (env('APP_ENV', 'local') !== 'local') {
+                                Mail::send('emails.confirmation', ['confirmationcode'=>$confirmationcode], function($m) use ($email, $username) {
+                                    $m->from(env('MAIL_ADDRESS','translator-gator@pulselab.com'), env('MAIL_NAME','Translator-gator'));
+                                    $m->to($email, $username)->subject(env('MAIL_SUBJECT','Translator-gator Confirmation'));
+                                });
+                            }
                         } else { throw new \Exception("You must be pick at least one language."); }
                     } else { throw new \Exception("Username ($username) already taken. Please choose another name."); }
                 } else { throw new \Exception("Your email ($email) already registered to our site."); }

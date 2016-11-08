@@ -1,0 +1,39 @@
+#login-container {
+    padding-top: 8%;
+    .header-wrapper .header_logo > img {
+        width: 80%;
+        margin: auto;
+        display: block;
+        margin-bottom: 20px;
+    }
+    form {
+        .form-auth { @include auth-form(); }
+        .auth-error {@include error-on-auth(); }
+        .form-submit { @include submit-on-auth(); }
+    }
+    #register-redirect {
+        margin-top: 15px;
+        text-align: center;
+        span {
+            cursor: pointer;
+            font-size: 20px;
+            font-family: 'TradeGothic-Bold';
+        }
+    }
+    #forgot-redirect {
+        margin-top: 10px;
+        text-align: center;
+        span {
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'TradeGothic-Bold';
+        }
+    }
+}
+#plj_logo {
+    width: 25%;
+    right: 25px;
+    bottom: 25px;
+    cursor: pointer;
+    position: absolute;
+}

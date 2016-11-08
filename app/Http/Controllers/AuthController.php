@@ -167,10 +167,13 @@ class AuthController extends Controller {
                     $user->confirmationcode = $confirmationcode;
                     $user->save();
 
-                    Mail::send('emails.confirmation', ['confirmationcode'=>$confirmationcode], function($m) use ($user) {
-                        $m->from(env('MAIL_ADDRESS','translator-gator@pulselab.com'), env('MAIL_NAME','Translator-gator'));
-                        $m->to($user->email, $user->username)->subject(env('MAIL_SUBJECT','Translator-gator Confirmation'));
-                    });
+
+                    if (env('APP_ENV', 'local') !== 'local') {
+                        Mail::send('emails.confirmation', ['confirmationcode'=>$confirmationcode], function($m) use ($user) {
+                            $m->from(env('MAIL_ADDRESS','translator-gator@pulselab.com'), env('MAIL_NAME','Translator-gator'));
+                            $m->to($user->email, $user->username)->subject(env('MAIL_SUBJECT','Translator-gator Confirmation'));
+                        });
+                    }
                 } else { throw new \Exception("User with email $email already activated."); }
 
             } catch (\Exception $e) {
@@ -280,10 +283,13 @@ class AuthController extends Controller {
                 $user->resetcode = $resetCode;
                 $user->save();
 
-                Mail::send('emails.resetpassword', ['resetCode'=>$resetCode], function($m) use ($user) {
-                    $m->from(env('MAIL_ADDRESS','translator-gator@pulselab.com'), env('MAIL_NAME','Translator-gator'));
-                    $m->to($user->email, $user->username)->subject(env('MAIL_SUBJECT','Translator-gator Confirmation'));
-                });
+
+                if (env('APP_ENV', 'local') !== 'local') {
+                    Mail::send('emails.resetpassword', ['resetCode'=>$resetCode], function($m) use ($user) {
+                        $m->from(env('MAIL_ADDRESS','translator-gator@pulselab.com'), env('MAIL_NAME','Translator-gator'));
+                        $m->to($user->email, $user->username)->subject(env('MAIL_SUBJECT','Translator-gator Confirmation'));
+                    });
+                }
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;

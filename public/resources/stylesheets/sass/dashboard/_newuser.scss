@@ -1,0 +1,17 @@
+#content-newuser {
+    padding: 40px 75px 0px 75px;
+    #first-container { @include firsthint(); }
+    #second-container { @include secondhint(); }
+    #third-container { @include thirdhint(); }
+    #third-container { @include thirdhint(); }
+    #fourth-container { @include fourthhint(); }
+    #fourth-container { @include fourthhint(); }
+    #fifth-container { @include fifthhint(); }
+    #sixth-container { @include sixthhint(); }
+
+    #leaderboard-container { @include leaderboard(); }
+
+    #arrow-nav { @include arrow-nav(); }
+    #slides-nav { @include slides-nav(); }
+    .startbutton { @include dashbutton(); margin-top: 5px; }
+}
