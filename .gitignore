@@ -5,4 +5,5 @@ Homestead.yaml
 .env
 /public/exports
 /public/resources/temp
+public/resources/stylesheets/.sass-cache
 .DS_Store

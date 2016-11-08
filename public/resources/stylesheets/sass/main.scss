@@ -1,0 +1,35 @@
+@import "statics";
+@import "mixins";
+
+@font-face {
+    font-family: "TradeGothic-Bold";
+    src: url(../fonts/TradeGothic-Bold.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TradeGothic-CondEighteen";
+    src: url(../fonts/TradeGothic-CondEighteen.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TradeGothic-LightOblique";
+    src: url(../fonts/TradeGothic-LightOblique.ttf) format("truetype");
+}
+
+.transition {
+    -moz-transition: all 0.27s ease-out;
+    -webkit-transition: all 0.27s ease-out;
+    transition: all 0.27s ease-out;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

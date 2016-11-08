@@ -132,7 +132,6 @@ class TranslatedWordController extends Controller {
 
         if (!$isError) {
             try {
-                $filepath   = "exports";
                 $filename   = "crowdsource_dump_".Carbon::now().".csv";
                 $languages  = $raw_languages ? json_decode($raw_languages) : null;
                 $categories = $raw_categories ? json_decode($raw_categories) : null;
@@ -146,8 +145,7 @@ class TranslatedWordController extends Controller {
                     $all_categories = CategoryItem::All()->pluck('category_name', '_id');
                 }
 
-                if (!file_exists($filepath)) { mkdir($filepath, 0777, true); }
-                $writer     = fopen($filepath.'/'.$filename, "w");
+                $writer     = fopen($filename, "w");
                 $query      = TranslatedWord::with(array('language', 'origin_word', 'categorized_word'))->orderBy('origin_word_id')->orderBy('language_id')->orderBy('translated_to');
                 if (!empty($languages)) { $query = $query->whereIn('language_id', $languages); }
                 $query->chunk(200, function($translatedwords) use (&$writer, $all_categories) {
@@ -163,12 +161,12 @@ class TranslatedWordController extends Controller {
                                                                 ->map(function($item) use ($all_categories) { return $all_categories[$item]; })
                                                                 ->toArray());
                         array_walk($category_counter, function(&$val, $key) { $val = "(\"" . $key . "\"-" . $val . ")"; });
-                        fputs($writer, "\"$origin_word\", \"$language\", \"$translated_to\", \"$counter_voteup\", \"$counter_votedown\", \"[".implode(',', $category_counter)."]\"\n");
+                        fputs($writer, "\"$origin_word\", \"$language\", \"$translated_to\", $counter_voteup, $counter_votedown, [".implode(',', $category_counter)."]\n");
                     }
                 });
                 fclose($writer);
 
-                return response()->download($filepath.'/'.$filename, $filename, array('Content-Type: text/csv'));
+                return response()->download($filename, $filename, array('Content-Type: text/csv'))->deleteFileAfterSend(true);
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
