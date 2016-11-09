@@ -1,7 +1,7 @@
 <div id="words-view">
     <div class="row">
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-cloud-upload round-icon"></i> Upload</span>
@@ -15,7 +15,7 @@
                                 Browse <input type="file" accept=".csv" ng-disabled="upload_disabled">
                             </span>
                         </span>
-                        <input type="text" class="form-control" readonly="" ng-model="uploaded_file.name">
+                        <input type="text" class="form-control" readonly="" ng-model="uploaded_file.name" onclick="console.log('triggered')">
                     </div>
                     <button class="btn btn-info btn-pulselab btn-submit" ng-click="upload()" ng-disabled="upload_disabled"><i class="icon-check"></i> <span>Upload</span></button>
                     <div class="clearfix"></div>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-cloud-download round-icon"></i> Download</span>

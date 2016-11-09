@@ -29,7 +29,7 @@ class CategoryController extends Controller {
 
         if (!$isError) {
             try {
-                $result     = Category::with('category_items')->take($limit)->skip($offset)->get();
+                $result     = Category::with('category_items')->take($limit)->skip($offset)->get()->keyBy('_id');
 
             } catch (\Exception $e) {
                 $response   = "FAILED";

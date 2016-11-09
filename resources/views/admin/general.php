@@ -1,7 +1,7 @@
 <div id="general-view">
     <div class="row">
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-grid round-icon"></i> Page Configuration</span>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-badge round-icon"></i> Point Configuration</span>
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-energy round-icon"></i> Battery Configuration</span>
@@ -107,13 +107,13 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-directions round-icon"></i> Action Configuration</span>
                     </div>
                 </div>
-                <div class="portlet-body">
+                <div class="portlet-body noselect">
                     <form ng-submit="cfg_save('action')">
                         <div class="row">
                             <toggle-switch
@@ -147,7 +147,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-title ">
                     <div class="caption">
                         <span class="caption-subject bold uppercase"><i class="icon-cup round-icon"></i> Redeem Configuration</span>

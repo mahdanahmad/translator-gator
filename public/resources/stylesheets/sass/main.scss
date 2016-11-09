@@ -21,15 +21,10 @@ a { cursor: pointer; }
 img { max-width: 100%; height: auto; }
 textarea { resize: none; }
 body { font-family: 'Open Sans', sans-serif; }
-.transition {
-    -moz-transition: all 0.27s ease-out;
-    -webkit-transition: all 0.27s ease-out;
-    transition: all 0.27s ease-out;
-}
-.nopadding {
-   padding: 0 !important;
-   margin: 0 !important;
-}
+*:focus, select { outline: none!important; }
+.bold { font-weight: 700 !important; }
+.uppercase { text-transform: uppercase !important; }
+.nopadding { padding: 0 !important; margin: 0 !important; }
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

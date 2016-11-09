@@ -1,0 +1,74 @@
+#redeem-view {
+    #redeem-filter {
+        width: 100%;
+        & > div > button {
+            width: 95%; color: white; margin: auto; display: inline-block;
+            border-radius: 10px!important; font-family: 'TradeGothic-Bold';
+            background-color: lightsteelblue; border: 1px solid lightsteelblue;
+            font-size: 16px; margin-bottom: 15px;
+            &.redeem-filter-active#redeem-filter-all { background-color: #00AEEF; border: 1px solid #00AEEF; }
+        }
+    }
+    #redeem-table table > tbody > tr > td {
+        &.status-onprogress { background-color: $redeem-onprogress; border: 1px solid $redeem-onprogress; }
+        &.status-success { background-color: $redeem-success; border: 1px solid $redeem-success; }
+        &.status-failed { background-color: $redeem-failed; border: 1px solid $redeem-failed; }
+    }
+    #redeem-filter > div > button.redeem-filter-active {
+        &#redeem-filter-onprogress { background-color: $redeem-onprogress; border: 1px solid $redeem-onprogress; }
+        &#redeem-filter-success { background-color: $redeem-success; border: 1px solid $redeem-success; }
+        &#redeem-filter-failed { background-color: $redeem-failed; border: 1px solid $redeem-failed; }
+    }
+    #redeem-table {
+        background-color: white; padding: 25px; border-radius: 11px!important; font-size: 14px; text-align: center; margin-top: 15px;
+        #redeem-title {
+            text-align: left; margin-bottom: 25px;
+            #redeem-upload {
+                background-color: white; border: 1px solid lightsteelblue;
+                border-radius: 10px!important; float: right; display: inline-block;
+                cursor: pointer; text-transform: none;
+                font-size: 14px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            }
+            span { text-transform: uppercase; font-size: 20px; font-family: 'TradeGothic-Bold'; }
+        }
+        th { text-align: center; font-size: 17px; font-family: 'TradeGothic-Bold'; }
+        tr { line-height: 35px; }
+        input[type="search"] {
+            font-size: 16px; font-weight: normal; color: #333; background-color: #fff;
+            border: 1px solid lightgrey; box-shadow: none;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            -webkit-border-radius: 4px; -moz-border-radius: 4px;
+            -ms-border-radius: 4px; -o-border-radius: 4px;
+            border-radius: 10px!important; padding: 0px 15px;
+            &:focus { border-color: #00AEEF; outline: none; }
+        }
+        select {
+            width: 60px; padding: 2px 5px; margin: 0px 10px; background-color: white; border-radius: 5px!important; border-color: lightgrey;
+            &:focus { outline: none; }
+        }
+        .dt-buttons {
+            margin-right: 15px;
+            .dt-button {
+                border: 1px solid lightgrey; padding: 0px 25px; line-height: 22px; background-color: white!important; box-shadow: none; border-radius: 5px!important;
+                &:hover { outline: none; color: black; }
+            }
+        }
+    }
+    .btn-file {
+        position: relative; overflow: hidden;
+        &:hover { background-color: #00ADEF; }
+        input[type=file] {
+            position: absolute;
+            top: 0; right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0; outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+    }
+}

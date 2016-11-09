@@ -1,0 +1,77 @@
+#category-view {
+    .category-container .form-group.input-group {
+        width: 100%;
+        .input-group-addon.input-title { width: 150px; background-color: #00ADEF; border-color: #46b8da; cursor: default; color: #ffffff; }
+        .input-group-addon.input-unit {
+            width: 25px; background-color: #ffffff; border-color: #ccc; cursor: pointer;
+            i.fa-times { color: darkred; font-size: 20px; }
+            i.fa-plus { color: green; position: relative; top: 2px; font-size: 19px; }
+            i.fa-pencil-square-o { color: dodgerblue; position: relative; top: 2px; font-size: 19px; }
+        }
+        select.group-picker, select.categories-picker {
+            text-transform: capitalize; background-color: white !important;
+            width: 100%; height: 34px; padding: 6px 12px;
+            border-radius: 0px 4px 4px 0px; border-color: #ccc;
+        }
+    }
+}
+.add-cate-modal .modal-dialog.modal-sm,
+.edit-cate-modal .modal-dialog.modal-sm,
+.delete-cate-modal .modal-dialog.modal-sm,
+.delete-lang-modal .modal-dialog.modal-sm {
+    top: 25vh;
+}
+@media (min-width: 768px) {
+    .add-cate-modal .modal-dialog.modal-sm,
+    .edit-cate-modal .modal-dialog.modal-sm {
+        width: 500px;
+    }
+    .delete-cate-modal .modal-dialog.modal-sm,
+    .delete-lang-modal .modal-dialog.modal-sm {
+        width: 375px;
+    }
+}
+
+.delete-cate-modal .modal-dialog.modal-sm .modal-content .modal-body,
+.delete-lang-modal .modal-dialog.modal-sm .modal-content .modal-body {
+    text-align: center;
+}
+.delete-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer,
+.delete-lang-modal .modal-dialog.modal-sm .modal-content .modal-footer {
+    border: none;
+    padding: 15px 30px;
+}
+.add-cate-modal .modal-dialog.modal-sm .modal-content .modal-header,
+.edit-cate-modal .modal-dialog.modal-sm .modal-content .modal-header {
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 30px 15px 15px 30px;
+}
+.add-cate-modal .modal-dialog.modal-sm .modal-content .modal-body,
+.edit-cate-modal .modal-dialog.modal-sm .modal-content .modal-body {
+    padding: 0px 30px;
+}
+.add-cate-modal .modal-dialog.modal-sm .modal-content .modal-body .form-group.input-group > span.input-title,
+.edit-cate-modal .modal-dialog.modal-sm .modal-content .modal-body .form-group.input-group > span.input-title {
+    background-color: #00ADEF;
+    color: #fff;
+}
+.add-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer,
+.edit-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer {
+    border: none;
+    padding: 0px 30px 30px 30px;
+}
+.add-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-pulselab,
+.edit-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-pulselab,
+.delete-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-primary,
+.delete-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-danger,
+.delete-lang-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-primary,
+.delete-lang-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-danger {
+    width: 150px;
+    border-radius: 15px!important;
+}
+.add-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-pulselab:hover,
+.edit-cate-modal .modal-dialog.modal-sm .modal-content .modal-footer .btn-pulselab:hover {
+    color: #fff;
+}

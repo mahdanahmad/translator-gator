@@ -17,52 +17,57 @@
 	</div>
 </div>
 <div id="admin-content" class="">
-	<div id="admin-nav-wrapper" ng-class="{fold : fold, mobilecollapse : togglemobile}">
+	<div id="admin-nav-wrapper" ng-class="{fold : fold, mobilecollapse : togglemobile}" >
 		<ul id="admin-nav-menu">
 			<li class="sidebar-toggler-wrapper">
 				<i class="fa pull-right" ng-class="fold ? 'fa-angle-double-right' : 'fa-angle-double-left'" aria-hidden="true" ng-click="fold = !fold"></i>
 			</li>
 			<li class="start" ng-class="{'active' : activePage == 'statistic'}">
-				<div ui-sref="admin.statistic" ng-click="activePage = 'statistic'">
+				<div ui-sref="admin.statistic" ng-click="activePage = 'statistic'; togglemobile = true; ">
 					<i class="icon-graph"></i>
 					<span class="title">Statistic</span>
 					<span class="selected"></span>
 				</div>
 			</li>
 			<li ng-class="{'active' : activePage == 'words'}">
-				<div ui-sref="admin.words" ng-click="activePage = 'words'">
+				<div ui-sref="admin.words" ng-click="activePage = 'words'; togglemobile = true; ">
 					<i class="icon-layers"></i>
 					<span class="title">Words Management</span>
 					<span class="selected"></span>
 				</div>
 			</li>
 			<li ng-class="{'active' : activePage == 'general'}">
-				<div ui-sref="admin.general" ng-click="activePage = 'general'">
+				<div ui-sref="admin.general" ng-click="activePage = 'general'; togglemobile = true; ">
 					<i class="icon-wrench"></i>
 					<span class="title">General Configuration</span>
 					<span class="selected"></span>
 				</div>
 			</li>
 			<li ng-class="{'active' : activePage == 'category'}">
-				<div ui-sref="admin.category" ng-click="activePage = 'category'">
+				<div ui-sref="admin.category" ng-click="activePage = 'category'; togglemobile = true; ">
 					<i class="icon-grid"></i>
 					<span class="title">Category Configuration</span>
 					<span class="selected"></span>
 				</div>
 			<li ng-class="{'active' : activePage == 'language'}">
-				<div ui-sref="admin.language" ng-click="activePage = 'language'">
+				<div ui-sref="admin.language" ng-click="activePage = 'language'; togglemobile = true; ">
 					<i class="icon-bubbles"></i>
 					<span class="title">Language Configuration</span>
 					<span class="selected"></span>
 				</div>
 			</li>
 			<li class="last" ng-class="{'active' : activePage == 'redeem'}">
-				<div ui-sref="admin.redeem" ng-click="activePage = 'redeem'">
+				<div ui-sref="admin.redeem" ng-click="activePage = 'redeem'; togglemobile = true; ">
 					<i class="icon-wallet"></i>
 					<span class="title">Redeem Configuration</span>
 					<span class="selected"></span>
 				</div>
 			</li>
 		</ul>
+	</div>
+	<div id="admin-page-wrapper" class="pull-right" ng-class="{fold : fold}" >
+		<div id="admin-page">
+			<div ui-view></div>
+		</div>
 	</div>
 </div>

@@ -1,4 +1,9 @@
-
+@import "words";
+@import "redeem";
+@import "general";
+@import "category";
+@import "language";
+@import "statistic";
 
 #admin-header {
     width: 100%;
@@ -29,7 +34,7 @@
     background-color: $def-white;
     @media (min-width: $width-treshold) {
         #admin-nav-wrapper {
-            width: $admin-nav-width; background-color: $admin-nav-color; height: 100%;
+            width: $admin-nav-width; background-color: $admin-nav-color; height: 100%; display: inline-block;
             ul#admin-nav-menu {
                 display: block; margin: 0; padding: 0; border: 0px;
                 & > li:not(.sidebar-toggler-wrapper) {
@@ -66,7 +71,7 @@
             }
         }
         #admin-nav-wrapper.fold {
-            width: 45px;
+            width: $admin-fold-width;
             ul#admin-nav-menu {
                 display: block; margin: 0; padding: 0; border: 0px;
                 & > li:not(.sidebar-toggler-wrapper) {
@@ -77,11 +82,12 @@
                         & > span.title { display: none; }
                     }
                     &:hover {
-                        width: $admin-nav-width; background-color: $nav-hover-color; box-shadow: 5px 5px rgba(48, 48, 48, 0.2);
+                        width: $admin-nav-width; background-color: $nav-hover-color; box-shadow: 5px 5px rgba(48, 48, 48, 0.2); z-index: 8228; position: relative;
                         & > div {
                             border : none;
                             & > i { display: inline; top: 2px; margin-right: 20px; }
                             & > span.title { display: inline; }
+                            & > span.selected { right: 0px!important; }
                         }
                     }
                     &.active > div > span.selected { top : 13px; right: -3px; }
@@ -95,6 +101,7 @@
     }
     @media (max-width: $width-treshold) {
         #admin-nav-wrapper {
+            position: absolute; z-index: 8228; width: 100%;
             ul#admin-nav-menu {
                 display: block; margin: 0; padding: 0px; border: 0px; list-style: none; background-color: $nav-collapse-color;
                 li { border-bottom: 1px solid lightgrey; padding: 10px 25px; span.title {margin-left: 10px; }}
@@ -102,4 +109,23 @@
             .sidebar-toggler-wrapper, &.mobilecollapse { display: none; }
         }
     }
+    #admin-page-wrapper {
+        display: inline-block;
+        @media (max-width: $width-treshold) { width: 100%; }
+        @media (min-width: $width-treshold) {
+            width: calc(100% - #{$admin-nav-width}); max-height: 100%;
+            &.fold{ width: calc(100% - #{$admin-fold-width}); }
+        }
+        #admin-page {
+            width: 100%; height: calc(100vh - #{$admin-head-height}); overflow-y: auto; padding: 30px;
+        }
+    }
 }
+
+.btn-pulselab {
+    background-color: $def-background; border: none; padding: 7px 14px; font-size: 14px;
+    outline: none !important; background-image: none !important; filter: none; color: white;
+    -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; text-shadow: none;
+    &:hover { background-color: $def-background!important; }
+}
+.btn-cfg-submit { float: right; width: 125px; margin-right: 11px; }

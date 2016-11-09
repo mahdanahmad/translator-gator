@@ -133,7 +133,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <div class="portlet light bordered">
+            <div class="portlet">
                 <div class="portlet-body">
                     <div class="col-md-6">
                         <canvas id="line"

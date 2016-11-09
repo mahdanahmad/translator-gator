@@ -1,0 +1,15 @@
+#general-view {
+    .portlet { @include default-portlet(); }
+    .form-group {
+        padding: 0px 10px; float: left;
+        .input-group-addon.input-title { width: 125px; background-color: $def-background; border-color: #46b8da; color: #fff; cursor: default; }
+    }
+    .switch-pulselab {
+        float: left; border: 1px solid #ccc;
+        span.switch-left { color: #fff; background: $def-background; }
+        span.switch-right, span.switch-left { width: 25%; }
+        span.knob { width: 50%; }
+        @media (min-width: $width-treshold) {width: 40%; margin: 0px 5% 15px 5%; }
+        @media (max-width: $width-treshold) { width: 80%; margin: 0px 10% 15px 10%; }
+    }
+}

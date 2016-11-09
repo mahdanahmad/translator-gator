@@ -9,7 +9,7 @@
 </script>
 <div id="language-view">
     <div class="col-md-12">
-        <div class="portlet light bordered">
+        <div class="portlet">
             <div class="portlet-body">
                 <div class="add-language">
                     <div class="form-group input-group col-md-12">

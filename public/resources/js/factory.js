@@ -43,17 +43,14 @@ app.factory('fetcher', ['$http', function($http) {
         getCategories : function(callback) {
             $http.get('api/categories').success(callback).error(callback);
         },
-        postCategory : function(data, callback) {
-            $http.post('api/category_items', data).success(callback).error(callback);
+        postCategory : function(category_id, data, callback) {
+            $http.post('api/categories/' + category_id + '/items', data).success(callback).error(callback);
         },
-        putCategory : function(id, data, callback) {
-            $http.put('api/category_items/' + id, data, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
-            }).success(callback).error(callback);
+        putCategory : function(category_id, id, data, callback) {
+            $http.put('api/categories/' + category_id + '/items/' + id, data).success(callback).error(callback);
         },
-        deleteCategory : function(id, callback) {
-            $http.delete('api/category_items/' + id).success(callback).error(callback);
+        deleteCategory : function(category_id, id, callback) {
+            $http.delete('api/categories/' + category_id + '/items/' + id).success(callback).error(callback);
         },
         postCategoryGroup : function(data, callback) {
             $http.post('api/categories', data).success(callback).error(callback);

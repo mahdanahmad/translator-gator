@@ -1,0 +1,24 @@
+#language-view {
+    .add-language .form-group.input-group .input-group-addon {
+        &.input-unit {
+            background-color: #fff; cursor: pointer;
+            i { color: green; }
+        }
+        &.input-title {
+            width: 175px; background-color: #00ADEF; border-color: #46b8da; cursor: default; color: #ffffff;
+            i { color: #ffffff; }
+        }
+    }
+    .language-list-title { margin-bottom: 15px; }
+    .language-list-container .form-group.input-group .input-group-addon {
+        &.input-title {
+            width: 25px; background-color: $def-background; border-color: #46b8da; cursor: default;
+            i { color: #ffffff; }
+        }
+        &.input-unit {
+            background-color: #fff; cursor: default;
+            .language_edit { cursor: pointer; color: green; font-size: 17px; }
+            .language_delete { cursor: pointer; color: darkred; font-size: 20px; }
+        }
+    }
+}

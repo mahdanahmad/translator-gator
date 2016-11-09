@@ -1,0 +1,37 @@
+#words-view {
+    .portlet { @include default-portlet(); }
+
+    .file-uploader { margin-top: 10px; }
+    .file-downloader { margin: 5px 0px; }
+    .btn-file {
+        position: relative; overflow: hidden;
+        &:hover { background-color: #00ADEF; }
+        input[type=file] {
+            position: absolute;
+            top: 0; right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0; outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+    }
+    .btn-submit { margin-top: 15px; float: right; width: 125px; }
+    .btn-fake-lang {
+        cursor: default; opacity: 1;
+        &:hover { color: #ffffff; }
+    }
+    #selectall-container { margin-top: 15px; float: left; }
+    #download_language {
+        margin-bottom: 10px;
+        & > div { margin-bottom: 5px; }
+        #language-container { border: 1px solid #ccc; padding: 15px; }
+        #download_categories { border: 1px solid #ccc; border-top: none; padding: 15px; }
+    }
+    select { text-transform: capitalize; width: 100%; background-color: white !important; height: 34px; border-radius: 0px 4px 4px 0px; border-color: #ccc; padding: 6px 12px; }
+    input[readonly] { background-color: white !important; cursor: text !important; }
+}

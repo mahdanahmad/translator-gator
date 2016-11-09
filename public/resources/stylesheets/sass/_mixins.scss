@@ -209,13 +209,7 @@
         text-align: center;
         border-radius: 10px!important;
     }
-    & > div > div.alternate-arrow {
-        width: 10%;
-        display: table-cell;
-        margin: 0px;
-        vertical-align: middle;
-        text-align: center;
-    }
+    & > div > div.alternate-arrow { width: 10%; display: table-cell; margin: 0px; vertical-align: middle; text-align: center; }
 }
 @mixin dashboard-formsubmit() {
     width: 80%; margin: auto;
@@ -224,4 +218,14 @@
     & > button.btn-submit-randomize { background: rgba(0,0,0,0); border-top-left-radius: 5px!important; border-bottom-left-radius: 5px!important; color: white!important; }
     & > button.btn-submit-translate { background: #006F99; border-top-right-radius: 5px!important; border-bottom-right-radius: 5px!important; color: white!important; }
     &.one-vote > button.btn-submit-randomize { border-radius: 5px!important; float: none; margin: auto; display: block; }
+}
+@mixin default-portlet() {
+    border: 1px solid #e1e1e1; padding: 12px 20px 15px 20px; background-color: $portlet-color; margin-top: 0px; margin-bottom: 25px; border-radius: 5px;
+    & > .portlet-title {
+        border-bottom: 1px solid #eee; padding: 0; min-height: 48px; margin-bottom: 10px;
+        & > .caption {
+            padding: 10px 0; float: left; display: inline-block; font-size: 16px; line-height: 18px; color: $port-title-color;
+        }
+    }
+    & > .portlet-body { padding-top: 8px; clear : both; }
 }
