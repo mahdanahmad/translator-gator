@@ -6,17 +6,9 @@ app.controller('LoginController', ['$scope', '$state', 'localStorageService', '$
 
     $scope.error    = false;
 
-    $scope.redirect_register    = function() {
-        $state.go('auth.register');
-    }
-
-    $scope.forgot_register      = function() {
-        $state.go('auth.forgot');
-    }
-
-    $scope.openURL              = function() {
-        $window.open('http://www.unglobalpulse.org/');
-    }
+    $scope.redirect_register    = function() { $state.go('auth.register'); }
+    $scope.forgot_register      = function() { $state.go('auth.forgot'); }
+    $scope.openURL              = function() { $window.open('http://www.unglobalpulse.org/'); }
 
     $scope.login = function() {
         $scope.error = false;

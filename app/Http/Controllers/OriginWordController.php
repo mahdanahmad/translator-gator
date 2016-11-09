@@ -33,7 +33,7 @@ class OriginWordController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
@@ -90,7 +90,7 @@ class OriginWordController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
@@ -166,7 +166,7 @@ class OriginWordController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 

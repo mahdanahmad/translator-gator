@@ -34,7 +34,7 @@ class CategoryController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
@@ -100,7 +100,7 @@ class CategoryController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
@@ -136,7 +136,7 @@ class CategoryController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage().". on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
@@ -198,7 +198,7 @@ class CategoryController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
@@ -239,7 +239,7 @@ class CategoryController extends Controller {
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
-                $message    = $e->getMessage()." on line: " . $e->getLine();
+                $message    = $e->getMessage();
             }
         }
 
