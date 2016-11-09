@@ -54,12 +54,13 @@ app.controller('AlternativeController', ['$scope', 'localStorageService', '$stat
 
     $scope.skip = function () {
         $scope.$parent.refresh();
-        var newPage = fetcher.getRandomState();
-        if ($scope.$parent.activePage == newPage) {
-            init();
-        } else {
-            $scope.$parent.activePage = newPage;
-        }
+        fetcher.getRandomState(function(newPage) {
+            if ($scope.$parent.activePage == newPage) {
+                init();
+            } else {
+                $scope.$parent.activePage = newPage;
+            }
+        });
     };
 
     var init    = function () {

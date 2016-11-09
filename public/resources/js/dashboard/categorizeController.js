@@ -15,10 +15,8 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
     $scope.disabled             = false;
 
     $scope.categorize = function (id) {
-        if (_.contains($scope.selected_category, id)) {
-            $scope.selected_category   = _.reject($scope.selected_category, function (val) {
-                return val  == id;
-            })
+        if (_.includes($scope.selected_category, id)) {
+            $scope.selected_category   = _.reject($scope.selected_category, function (val) { return val  == id; })
         } else {
             $scope.selected_category.push(id);
         }
@@ -49,13 +47,13 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
 
     $scope.skip = function () {
         $scope.$parent.refresh();
-        $scope.selected_category    = [];
-        var newPage = fetcher.getRandomState();
-        if ($scope.$parent.activePage == newPage) {
-            init();
-        } else {
-            $scope.$parent.activePage = newPage;
-        }
+        fetcher.getRandomState(function(newPage) {
+            if ($scope.$parent.activePage == newPage) {
+                init();
+            } else {
+                $scope.$parent.activePage = newPage;
+            }
+        });
     };
 
     $scope.random = function() {

@@ -1,0 +1,40 @@
+#vote-view {
+    @media (min-width: $width-treshold) { padding-bottom: 60px; }
+    @media (max-width: $width-treshold) { padding-bottom: 30px; }
+    .vote-languange {
+        width: 100%; text-align: center; margin-bottom: 25px;
+        @media (min-width: $width-treshold) { font-size: 18px; }
+        @media (max-width: $width-treshold) { font-size: 15px; }
+    }
+    .words-container {
+        .form-button { @include dashboard-formsubmit(); }
+        .vote-word {
+            margin-bottom: 10px;
+            .vote-translated { background-color: white; color: black; }
+            .vote-origin, .vote-translated { width: 80%; padding: 20px; text-align: center; border:  2px solid white; border-radius: 5px!important; margin: 10px auto; }
+            .vote-buttons {
+                width: 80%; margin: 10px auto 15px auto;
+                div.up-button, div.down-button { width: 48%; display: inline-block; margin: 0px; text-align: center; color: black; }
+                div.upvote-button > div.title { color: $upvote-color; }
+                div.downvote-button > div.title { color: $downvote-color; }
+                & > div {
+                    & > div { display: inline-block; margin: 0px; float: left; background-color: white; padding: 10px; cursor: pointer; }
+                    & > div.arrow { width: 30%; border-right: 1px solid; border-top-left-radius: 10px!important; border-bottom-left-radius: 10px!important; }
+                    & > div.arrow.agree { border-color: $upvote-color; }
+                    & > div.arrow.disagree { border-color: $downvote-color; }
+                    & > div.title { font-family: 'TradeGothic-CondEighteen'; letter-spacing: 1px; width: 70%; border-top-right-radius: 10px!important; border-bottom-right-radius: 10px!important; }
+
+                }
+                & > div > div.arrow > img { width: 15px; }
+            }
+            @media (min-width: $width-treshold) {
+                .vote-origin, .vote-translated { font-size: 18px; }
+                .vote-buttons { div.up-button, div.down-button { font-size: 20px; }}
+            }
+            @media (max-width: $width-treshold) {
+                .vote-origin, .vote-translated { font-size: 15px; }
+                .vote-buttons { div.up-button, div.down-button { font-size: 13px; }}
+            }
+        }
+    }
+}

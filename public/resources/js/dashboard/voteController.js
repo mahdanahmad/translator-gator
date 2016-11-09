@@ -23,23 +23,15 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
                 });
             });
 
-            //        console.log(vote_array);
-
             var data = {
                 user_id         : localStorageService.get('_id'),
                 votes           : JSON.stringify(vote_array),
             }
 
             fetcher.postVote(data, function(response) {
-                //            console.log(response);
                 if ((response.status_code == "200") && (response.response == "OK")) {
-                    if (response.result !== 0) {
-                        //                    Notification.info(messageHelper.gainPointMsg(response.result, "voting some word(s)"));
-                        $scope.$parent.points += response.result;
-                    } else {
-                        Notification.warning(messageHelper.noPointMsg("didn't give any translation"));
-                    }
-                    // $scope.disabled = false;
+                    $scope.$parent.points += response.result;
+                    // Notification.info(messageHelper.gainPointMsg(response.result, "voting some word(s)"));
                     $scope.skip();
                 }
             });
@@ -48,12 +40,13 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
 
     $scope.skip = function () {
         $scope.$parent.refresh();
-        var newPage = fetcher.getRandomState();
-        if ($scope.$parent.activePage == newPage) {
-            init();
-        } else {
-            $scope.$parent.activePage = newPage;
-        }
+        fetcher.getRandomState(function(newPage) {
+            if ($scope.$parent.activePage == newPage) {
+                init();
+            } else {
+                $scope.$parent.activePage = newPage;
+            }
+        });
     };
 
     $scope.upvote   = function (value) {
@@ -83,6 +76,7 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
     var init    = function () {
         fetcher.getVote(localStorageService.get('_id'), function (response) {
             if ((response.status_code == "200") && (response.response == "OK")) {
+                console.log(response);
                 if (response.result !== null) {
                     $scope.language         = {
                         _id                 : response.result.language_id,

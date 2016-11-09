@@ -34,13 +34,23 @@ class GameController extends Controller {
         if(!$isError) {
             try {
                 $config             = Configuration::first();
-                $translatedwords    = OriginWord::whereNotNull('translated_counter')->where('is_deleted', '!=', 1)->get();
-                $untranslatedwords  = OriginWord::whereNull('translated_counter')->where('is_deleted', '!=', 1)->get();
 
-                if ($config->display_items_per_page > $untranslatedwords->count()) {
-                    $result     = array_merge($untranslatedwords->shuffle()->toArray(), $translatedwords->random($config->display_items_per_page - $untranslatedwords->count())->shuffle()->toArray());
+                $untranslatedwords  = OriginWord::where('translated_counter', 0)->where('is_deleted', '!=', 1)->take($config->display_items_per_page * 10)->get();
+
+                if ($untranslatedwords->count() && $untranslatedwords->count() > $config->display_items_per_page) {
+                    $result     = $untranslatedwords->random($config->display_items_per_page)->toArray();
                 } else {
-                    $result     = $untranslatedwords->random($config->display_items_per_page)->shuffle()->toArray();
+                    $translatedwords    = OriginWord::raw(function($collection) use ($config) {
+                        return $collection->aggregate(array(
+                            array('$match'      => array(
+                                'is_deleted'        => array('$ne' => 1))),
+                            array('$sort'       => array('translated_counter' => 1)),
+                            array('$limit'      => $config->display_items_per_page * 10)
+                        ));
+                    });
+                    if ($translatedwords->count() > $config->display_items_per_page) { $translatedwords = $translatedwords->random($config->display_items_per_page); } else { $translatedwords = $translatedwords; }
+
+                    $result = array_merge($untranslatedwords->toArray(), $translatedwords->toArray());
                 }
 
                 if ($config->display_items_per_page == 1) { $result = array($result); }
@@ -98,7 +108,7 @@ class GameController extends Controller {
                                     'language_id'       => '$language_id',
                                     'origin_word_id'    => '$origin_word_id')),
                                 array('$sort'       => array('total' => 1)),
-                                array('$limit'      => $config->display_items_per_page * 4)
+                                array('$limit'      => $config->display_items_per_page * 10)
                             ));
                         });
 
@@ -167,7 +177,7 @@ class GameController extends Controller {
                                     'translated_id'     => array('$last' => '$_id'),
                                     'translated_to'     => array('$last' => '$translated_to'))),
                                 array('$sort'       => array('count' => 1)),
-                                array('$limit'      => $config->display_items_per_page * 4)
+                                array('$limit'      => $config->display_items_per_page * 10)
                             ));
                         });
 

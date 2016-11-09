@@ -1,0 +1,14 @@
+#content-kicked {
+    width: 75%; margin: auto; padding-top: 60px;
+    div#floor {
+        margin-bottom: 20px;
+        img#stickman-img { width: 30%; display: inline-block; }
+        div#kicked-message { width: 55%; float: right; display: inline-block; font-size: 16px; }
+    }
+    div#ceil {
+        width: 80%; margin: auto; position: relative;
+        div#timer { font-size: 40px; display: inline-block; vertical-align: top; padding: 15px 0px 0px 0px; }
+        div#detail { display: inline-block; float: right; width: 200px; text-align: center; }
+        div#countdown { font-family: 'TradeGothic-Bold'; font-size: 80px; display: inline-block; float: right; width: 200px; line-height: 88px; }
+    }
+}

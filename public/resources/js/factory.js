@@ -1,23 +1,19 @@
-app.factory('fetcher', ['$http', '$state', function($http, $state) {
+app.factory('fetcher', ['$http', function($http) {
     var state   = '';
     var states  = [];
 
     return {
-        getRandomState : function(activePage) {
-//            state = states[Math.floor(Math.random() * states.length)];
-            $http.get('api/config/action')
-            .success(function(response) {
+        getRandomState : function(callback) {
+            $http.get('api/config/action').success(function(response) {
                 if ((response.status_code == "200") && (response.response == "OK")) {
                     states = response.result;
                 } else {
                     states = ['translate', 'alternative', 'vote', 'categorize'];
                 }
             }).error(function(response) {
-                states = ['translate', 'alternative', 'vote', 'categorize'];
+                states  = ['translate', 'alternative', 'vote', 'categorize'];
             }).then(function(response) {
-                state = _.sample(states);;
-                $state.go('dashboard.' + state);
-                return state;
+                callback(_.sample(states));
             });
         },
         getConfig : function(callback) {
@@ -162,7 +158,7 @@ app.factory('fetcher', ['$http', '$state', function($http, $state) {
     };
 }]);
 
-app.factory('messageHelper', ['$http', '$state', function($http, $state) {
+app.factory('messageHelper', ['$http', function($http) {
     return {
         massiveErrorMsg : function() {
             return "Sorry, we've encounter some problem right now. Please refresh this page and hoping it will fix the problem.";

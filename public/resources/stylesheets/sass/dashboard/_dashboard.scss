@@ -1,28 +1,22 @@
+@import "vote";
+@import "drift";
+@import "kicked";
 @import "newuser";
+@import "translate";
+@import "categorize";
+@import "alternative";
 
 #page-dash {
     position: relative;
     #dash-header {
         padding: 15px;
         #battery-header {
-            float: left;
-            position: relative;
-            display: inline-block;
-            #image-container, #color-container {
-                width: 90px;
-                position: absolute;
-                top: 0px;
-                left: 0px;
-            }
+            float: left; position: relative; display: inline-block;
+            #image-container, #color-container { width: 90px; position: absolute; top: 0px; left: 0px; }
             #image-container { padding: 15px; z-index: 8228; }
             #color-container {
                 padding: 18px 20px 18px 18px;
-                .battery-color {
-                    width: 33%;
-                    height: 100%;
-                    display: inline-block;
-                    float: left;
-                }
+                .battery-color { width: 33%; height: 100%; display: inline-block; float: left; }
                 &.red-battery .battery-color { background-color: $battery-red; }
                 &.yellow-battery .battery-color { background-color: $battery-yellow; }
                 &.green-battery .battery-color { background-color: $battery-green; }
@@ -30,8 +24,7 @@
         }
     }
     #points-header {
-        float: right;
-        display: inline-block;
+        float: right; display: inline-block;
         span#ceil { font-family: 'TradeGothic-Bold'; font-size: 35px; }
         span#floor { font-size: 22px; }
         span#ceil, span#floor { display: block; text-align: right; height: 35px; cursor: default; }

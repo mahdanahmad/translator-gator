@@ -57,17 +57,24 @@ app.controller('DashboardController', ['$scope', '$location', 'localStorageServi
     }
 
     $scope.backToGame   = function() {
-        $scope.needClose    = false;
-        $scope.activePage   = fetcher.getRandomState();
-        $scope.refresh();
+        fetcher.getRandomState(function(newPage) {
+            $scope.refresh();
+            $scope.activePage   = newPage;
+            $scope.needClose    = false;
+        });
     }
 
     $scope.logout       = function() {
         localStorageService.remove('role');
-//        localStorageService.remove('_id');
 
         $state.go('auth.logout');
     }
+
+    $scope.$watch('activePage', function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            $state.go('dashboard.' + newValue);
+        }
+    });
 
     $scope.debugBattery = function() {
         $scope.health--;

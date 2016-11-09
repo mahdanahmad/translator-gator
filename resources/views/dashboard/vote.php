@@ -8,13 +8,13 @@
                 <div class="vote-translated capitalize">{{ value.translated_to }}</div>
                 <div class="clearfix"></div>
                 <div class="vote-buttons">
-                    <div class="noselect up-button" ng-click="upvote(value)" ng-class="{'upvote-button' : value.stat == 'up'}">
+                    <div class="noselect up-button pull-left" ng-click="upvote(value)" ng-class="{'upvote-button' : value.stat == 'up'}">
                         <div class="arrow agree">
                             <img src="resources/img/icons/arrow_up.png">
                         </div>
                         <div class="title">AGREE</div>
                     </div>
-                    <div class="noselect down-button" ng-click="downvote(value)" ng-class="{'downvote-button' : value.stat == 'down'}">
+                    <div class="noselect down-button pull-right" ng-click="downvote(value)" ng-class="{'downvote-button' : value.stat == 'down'}">
                         <div class="arrow disagree">
                             <img src="resources/img/icons/arrow_down.png">
                         </div>

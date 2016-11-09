@@ -24,8 +24,10 @@ app.controller('KickedController', ['$scope', '$state', 'localStorageService', '
 
         if ($scope.second == 0 && $scope.minute == 0 && $scope.hour == 0) {
             stop();
-            $scope.$parent.refresh();
-            $scope.activePage   = fetcher.getRandomState();
+            fetcher.getRandomState(function(newPage) {
+                $scope.$parent.refresh();
+                $scope.$parent.activePage   = newPage;
+            });
         } else {
             countdown = $timeout(onTimeout,1000);
         }

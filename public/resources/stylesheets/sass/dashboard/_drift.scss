@@ -1,0 +1,6 @@
+#content-drift {
+    padding: 40px 50px;
+    .split-container { @include split-container('ceil'); }
+    .startbutton { @include dashbutton(); margin-top: 5px; }
+    #leaderboard-container { @include leaderboard(); }
+}

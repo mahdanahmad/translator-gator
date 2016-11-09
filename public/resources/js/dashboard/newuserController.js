@@ -45,8 +45,10 @@ app.controller('NewuserController', ['$scope', '$sce', 'fetcher', 'config', 'mes
         changeHeader();
     }
 
-    $scope.startTheGame         = function() {
-        $scope.$parent.activePage   = fetcher.getRandomState();
+    $scope.startTheGame = function() {
+        fetcher.getRandomState(function(newPage) {
+            $scope.$parent.activePage   = newPage;
+        });
     };
 
     var changeHeader = function() {
