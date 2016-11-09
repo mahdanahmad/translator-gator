@@ -60,13 +60,13 @@ app.controller('DashboardController', ['$scope', '$location', 'localStorageServi
         fetcher.getRandomState(function(newPage) {
             $scope.refresh();
             $scope.activePage   = newPage;
+            $state.go('dashboard.' + newPage);
             $scope.needClose    = false;
         });
     }
 
     $scope.logout       = function() {
         localStorageService.remove('role');
-
         $state.go('auth.logout');
     }
 

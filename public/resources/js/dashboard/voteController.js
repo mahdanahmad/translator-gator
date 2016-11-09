@@ -12,10 +12,9 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
 
     $scope.input_vote       = function () {
         if (!$scope.disabled) {
-            $scope.disabled         = true;
+            $scope.disabled = true;
 
-            var vote_array   = [];
-
+            var vote_array  = [];
             _.each($scope.vote_list, function(val, key) {
                 vote_array.push({
                     translated_id   : val.translated_id,
@@ -76,7 +75,6 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
     var init    = function () {
         fetcher.getVote(localStorageService.get('_id'), function (response) {
             if ((response.status_code == "200") && (response.response == "OK")) {
-                console.log(response);
                 if (response.result !== null) {
                     $scope.language         = {
                         _id                 : response.result.language_id,

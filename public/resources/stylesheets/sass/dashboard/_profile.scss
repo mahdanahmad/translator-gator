@@ -1,0 +1,20 @@
+#content-profile {
+    padding: 40px 60px 0px 60px;
+    #leaderboard-container {
+        padding-top: 30px; @include leaderboard();
+        @media (max-width: $width-treshold) { height: 75vh; cursor: default; }
+        @media (min-width: $width-treshold) { height: 410px; cursor: default; }
+    }
+    #details-container {
+        padding-top: 30px; position: relative;
+        @media (max-width: $width-treshold) { height: 75vh; cursor: default; }
+        @media (min-width: $width-treshold) { height: 410px; cursor: default; }
+        .split-container {
+            &.ceil { @include split-container('ceil'); }
+            &.language { @include split-container('language'); }
+        }
+        .editbutton { @include dashbutton(); position: absolute; bottom: 10px; }
+    }
+    #arrow-nav { @include arrow-nav(); }
+    #slides-nav { @include slides-nav(); }
+}

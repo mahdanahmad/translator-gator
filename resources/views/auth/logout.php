@@ -1,11 +1,11 @@
-<div class="logout-container noselect">
-    <div id="leaderboard-container" 
+<div id="logout-container" class="noselect">
+    <div id="leaderboard-container"
          ng-include="'views/leaderboard'">
     </div>
-    
+
     <div id="auth-navigation">
         <div id="exit-nav">
-            <div ng-mouseenter="exit_select = true" 
+            <div ng-mouseenter="exit_select = true"
                  ng-mouseleave="exit_select = false"
                  ng-click="backToLogin()"
                  id="exit-navv"
