@@ -45,6 +45,14 @@ $app->group(['prefix' => 'views'], function () use ($app) {
     $app->get('statistic', function () {return view('admin.statistic');});
     $app->get('redeemAdmin', function () {return view('admin.redeem');});
 
+    $app->get('oldadmin', function () {return view('oldadmin.admin');});
+    $app->get('oldwords', function () {return view('oldadmin.words');});
+    $app->get('oldgeneral', function () {return view('oldadmin.general');});
+    $app->get('oldcategory', function () {return view('oldadmin.category');});
+    $app->get('oldlanguage', function () {return view('oldadmin.language');});
+    $app->get('oldstatistic', function () {return view('oldadmin.statistic');});
+    $app->get('oldredeemAdmin', function () {return view('oldadmin.redeem');});
+
     $app->get('details', function () {return view('template.details');});
     $app->get('firsthint', function () {return view('template.1stHint');});
     $app->get('secondhint', function () {return view('template.2ndHint');});

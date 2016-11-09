@@ -2,6 +2,7 @@ $pulselab-color     : #00ADEF;
 $width-treshold     : 992px;
 
 $def-background     : $pulselab-color;
+$def-white          : #F1F3FA;
 
 $battery-red        : #BEC56A; //#DF9284;
 $battery-yellow     : #BEC56A; //#FFD48D;
@@ -9,3 +10,9 @@ $battery-green      : #BEC56A; //#BEC59D;
 
 $upvote-color       : #BEC59D;
 $downvote-color     : #D46D5B;
+
+$admin-head-height  : 80px;
+$admin-nav-width    : 235px;
+$admin-nav-color    : #D1D0CE;
+$nav-hover-color    : #B6B6B4;
+$nav-collapse-color : #ebebeb;

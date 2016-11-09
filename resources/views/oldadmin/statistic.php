@@ -1,4 +1,5 @@
 <div id="statistic-view">
+    <!-- BEGIN DASHBOARD STATS -->
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat blue-madison pulselab-translate">
@@ -131,6 +132,7 @@
             </div>
         </div>
     </div>
+    <!-- END DASHBOARD STATS -->
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="portlet light bordered">

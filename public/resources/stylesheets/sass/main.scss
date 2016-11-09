@@ -2,6 +2,7 @@
 @import "mixins";
 
 @import "auth/auth";
+@import "admin/admin";
 @import "dashboard/dashboard";
 
 @font-face {
@@ -19,6 +20,7 @@
 a { cursor: pointer; }
 img { max-width: 100%; height: auto; }
 textarea { resize: none; }
+body { font-family: 'Open Sans', sans-serif; }
 .transition {
     -moz-transition: all 0.27s ease-out;
     -webkit-transition: all 0.27s ease-out;

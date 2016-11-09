@@ -172,6 +172,51 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
             controller: 'RedeemAdminController',
             data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
         });
+
+    $stateProvider.
+        state('oldadmin', {
+            url: '/oldadmin',
+            templateUrl: 'views/oldadmin',
+            controller: 'adminController',
+            abstract:true,
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        }).
+        state('oldadmin.statistic', {
+            url: '/statistic',
+            templateUrl: 'views/oldstatistic',
+            controller: 'statisticController',
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        }).
+        state('oldadmin.words', {
+            url: '/words',
+            templateUrl: 'views/oldwords',
+            controller: 'wordsController',
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        }).
+        state('oldadmin.general', {
+            url: '/general',
+            templateUrl: 'views/oldgeneral',
+            controller: 'generalController',
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        }).
+        state('oldadmin.category', {
+            url: '/category',
+            templateUrl: 'views/oldcategory',
+            controller: 'categoryController',
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        }).
+        state('oldadmin.language', {
+            url: '/language',
+            templateUrl: 'views/oldlanguage',
+            controller: 'languageController',
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        }).
+        state('oldadmin.redeem', {
+            url: '/redeem',
+            templateUrl: 'views/oldredeemAdmin',
+            controller: 'RedeemAdminController',
+            data: { permissions: { only: ['admin'], redirectTo: 'auth.login' }}
+        });
 });
 
 app.controller('MainController', ['$scope', '$rootScope', function ($scope, $rootScope) {

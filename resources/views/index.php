@@ -70,13 +70,15 @@
         <script src="resources/metronic/scripts/metronic.js" type="text/javascript"></script>
         <script src="resources/metronic/scripts/layout.js" type="text/javascript"></script>
         <script src="resources/metronic/scripts/quick-sidebar.js" type="text/javascript"></script>
-        <script>
+        <!-- <script>
             jQuery(document).ready(function() {
             Metronic.init(); // init metronic core componets
             Layout.init(); // init layout
             QuickSidebar.init(); // init quick sidebar
         });
-        </script>
+        </script> -->
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://unpkg.com/angular-toggle-switch@1.3.0/angular-toggle-switch.css">
@@ -90,13 +92,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
 
         <!-- BEGIN METRONIC STYLES -->
-        <link href="resources/metronic/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+        <!-- <link href="resources/metronic/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
         <link href="resources/metronic/css/plugins.css" rel="stylesheet" type="text/css"/>
         <link href="resources/metronic/css/layout.css" rel="stylesheet" type="text/css"/>
         <link href="resources/metronic/css/themes/pulselab.css" rel="stylesheet" type="text/css" id="style_color"/>
         <link href="resources/metronic/css/custom.css" rel="stylesheet" type="text/css"/>
         <link href="resources/metronic/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-        <link href="resources/metronic/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/metronic/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/> -->
         <!-- END METRONIC STYLES -->
 
         <link rel="stylesheet" href="resources/stylesheets/css/main.css">
