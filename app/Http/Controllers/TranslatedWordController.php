@@ -85,7 +85,7 @@ class TranslatedWordController extends Controller {
                     'translated'    => TranslatedWord::where('alternate_source', '')->groupBy('origin_word_id')->get()->count().'/'.$wordcount,
                     'alternated'    => TranslatedWord::where('alternate_source', '!=', '')->groupBy('origin_word_id')->get()->count().'/'.$wordcount,
                     'voted'         => TranslatedWord::where('counter_voteup', '>', 0)->orWhere('counter_votedown', '>', 0)->groupBy('origin_word_id')->get()->count().'/'.$wordcount,
-                    'catagorized'   => TranslatedWord::whereIn('_id', CategorizedWord::groupBy('translated_word_id')->get()->pluck('translated_word_id'))->groupBy('origin_word_id')->get()->count().'/'.$wordcount
+                    'categorized'   => TranslatedWord::whereIn('_id', CategorizedWord::groupBy('translated_word_id')->get()->pluck('translated_word_id'))->groupBy('origin_word_id')->get()->count().'/'.$wordcount
                 );
 
                 $result = array(

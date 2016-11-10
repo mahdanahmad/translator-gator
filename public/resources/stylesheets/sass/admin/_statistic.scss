@@ -1,0 +1,29 @@
+#statistic-view {
+    .portlet { @include default-portlet(); }
+    .dashboard-stat {
+        display: block; margin-bottom: 25px; overflow: hidden;
+        .visual {
+            width: 80px; height: 80px; display: block; float: left; padding-top: 10px; padding-left: 15px; margin-bottom: 15px; font-size: 35px; line-height: 35px;
+            & > i { color: #FFFFFF; opacity: 0.1; margin-left: -35px; font-size: 110px; line-height: 110px; display: inline-block; -webkit-font-smoothing: antialiased; }
+        }
+        .details {
+            position: absolute; right: 15px; padding-right: 15px; color: #ffffff;
+            .number { padding-top: 25px; text-align: right; font-size: 34px; line-height: 36px; letter-spacing: -1px; margin-bottom: 0px; font-weight: 300; }
+            .desc { text-align: right; font-size: 16px; letter-spacing: 0px; font-weight: 300; }
+            @media (max-width: $width-treshold) {
+                .number { font-size: 24px; }
+                .desc { font-size: 13px; }
+            }
+        }
+        a.more {
+            cursor: default; height: 27px; background-color: rgba(0,0,0,0.1)!important;
+            clear: both; display: block; padding: 6px 10px 6px 10px; opacity: 0.7;
+        }
+        &.dashboard-vote { background-color : $vote-color; }
+        &.dashboard-translate { background-color : $translate-color; }
+        &.dashboard-categorize { background-color : $categorize-color; }
+        &.dashboard-alternative { background-color : $alternative-color; }
+
+        // div.ocalrd-stat div.visual > i { margin-left: -15px; margin-top: -5px }
+    }
+}
