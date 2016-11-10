@@ -53,6 +53,7 @@ app.controller('AlternativeController', ['$scope', 'localStorageService', '$stat
     };
 
     $scope.skip = function () {
+        $scope.$parent.writeLog('skip', null, null, 'skip on alternative', null, _.map($scope.alternative_list, 'translated_id'));
         $scope.$parent.refresh();
         fetcher.getRandomState(function(newPage) {
             if ($scope.$parent.activePage == newPage) {
@@ -77,6 +78,12 @@ app.controller('AlternativeController', ['$scope', 'localStorageService', '$stat
 
                     $scope.disabled         = false;
                     $scope.alternative_list = response.result.data;
+
+                    $scope.$parent.on_exit_id   = {
+                        origin_id       : null,
+                        translated_id   : _.map(response.result.data, 'translated_id'),
+                        category_items  : null
+                    };
                 } else {
                     $scope.$parent.activePage = 'translate';
                     $state.go('dashboard.translate');

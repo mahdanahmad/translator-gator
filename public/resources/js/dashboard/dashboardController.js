@@ -8,6 +8,11 @@ app.controller('DashboardController', ['$scope', '$location', 'localStorageServi
     $scope.points       = 0;
     $scope.health       = 0;
     $scope.max_health   = 1;
+    $scope.on_exit_id   = {
+        origin_id       : null,
+        translated_id   : null,
+        category_items  : null,
+    };
 
     $scope.batteryBar   = {
         red     : config.batteryRed,
@@ -47,13 +52,21 @@ app.controller('DashboardController', ['$scope', '$location', 'localStorageServi
     }
 
     $scope.openHint     = function() {
+        $scope.writeLog('exit', null, null, 'exit to hint', $scope.on_exit_id.origin_id, $scope.on_exit_id.translated_id, $scope.on_exit_id.category_items);
         $scope.needClose    = true;
         $state.go('dashboard.hint');
     }
 
     $scope.openProfile  = function() {
+        $scope.writeLog('exit', null, null, 'exit to profile', $scope.on_exit_id.origin_id, $scope.on_exit_id.translated_id, $scope.on_exit_id.category_items);
         $scope.needClose    = true;
         $state.go('dashboard.profile');
+    }
+
+    $scope.logout       = function() {
+        $scope.writeLog('exit', null, null, 'exit to logout', $scope.on_exit_id.origin_id, $scope.on_exit_id.translated_id, $scope.on_exit_id.category_items);
+        localStorageService.remove('role');
+        $state.go('auth.logout');
     }
 
     $scope.backToGame   = function() {
@@ -65,22 +78,26 @@ app.controller('DashboardController', ['$scope', '$location', 'localStorageServi
         });
     }
 
-    $scope.logout       = function() {
-        localStorageService.remove('role');
-        $state.go('auth.logout');
+    $scope.writeLog     = function(action_type, result, affected_user, raw_result, origin_id, translated_id, category_items) {
+        if (!_.isNil(localStorageService.get('_id')) && !_.isNil(action_type)) {
+            var data    = {
+                result          : result,
+                user_id         : localStorageService.get('_id'),
+                origin_id       : origin_id,
+                raw_result      : raw_result,
+                action_type     : action_type,
+                affected_user   : affected_user,
+                translated_id   : translated_id,
+                category_items  : category_items,
+            }
+
+            fetcher.postLog(_.omitBy(data, _.isNil), function(response) {});
+        }
     }
 
     $scope.$watch('activePage', function(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $state.go('dashboard.' + newValue);
-        }
+        if (newValue !== oldValue) { $state.go('dashboard.' + newValue); }
     });
-
-    $scope.debugBattery = function() {
-        $scope.health--;
-        console.log('health', $scope.health);
-        console.log('percentage', ($scope.health / $scope.max_health) * 100);
-    }
 
     $scope.refresh      = function() {
         fetcher.getUser(localStorageService.get('_id'), function(response) {

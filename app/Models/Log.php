@@ -11,7 +11,7 @@ class Log extends Eloquent {
     protected $collection   = 'logs';
     protected $hidden       = array('created_at', 'updated_at');
     protected $dates        = array('deleted_at');
-    protected $fillable     = array('action_type', 'user_id', 'raw_result', 'result', 'affected_user', 'translated_id');
+    protected $fillable     = array('action_type', 'user_id', 'raw_result', 'result', 'affected_user', 'translated_id', 'origin_id', 'category_items');
 
     // Relationships
 	public function user() { return $this->belongsTo('App\Models\User'); }

@@ -20,9 +20,10 @@ class GameController extends Controller {
     /**
      * Retrieve words that haven't translated yet.
      *
+     * @param  string  $user_id
      * @return Response
      */
-    public function getUntranslated() {
+    public function getUntranslated($user_id) {
         $returnData         = array();
         $response           = "OK";
         $statusCode         = 200;
@@ -33,28 +34,43 @@ class GameController extends Controller {
 
         if(!$isError) {
             try {
-                $config             = Configuration::first();
+                $user   = User::find($user_id);
+                if ($user) {
+                    $config             = Configuration::first();
 
-                $untranslatedwords  = OriginWord::where('translated_counter', 0)->where('is_deleted', '!=', 1)->take($config->display_items_per_page * 10)->get();
+                    $untranslatedwords  = OriginWord::where('translated_counter', 0)->where('is_deleted', '!=', 1)->take($config->display_items_per_page * 10)->get();
+                    if ($untranslatedwords->count() && $untranslatedwords->count() > $config->display_items_per_page) {
+                        $data   = $untranslatedwords->random($config->display_items_per_page)->toArray();
+                    } else {
+                        $translatedwords    = OriginWord::raw(function($collection) use ($config) {
+                            return $collection->aggregate(array(
+                                array('$match'      => array(
+                                    'is_deleted'        => array('$ne' => 1))),
+                                    array('$sort'       => array('translated_counter' => 1)),
+                                    array('$limit'      => $config->display_items_per_page * 10)
+                                ));
+                            });
+                            if ($translatedwords->count() > $config->display_items_per_page) { $translatedwords = $translatedwords->random($config->display_items_per_page); } else { $translatedwords = $translatedwords; }
 
-                if ($untranslatedwords->count() && $untranslatedwords->count() > $config->display_items_per_page) {
-                    $result     = $untranslatedwords->random($config->display_items_per_page)->toArray();
-                } else {
-                    $translatedwords    = OriginWord::raw(function($collection) use ($config) {
-                        return $collection->aggregate(array(
-                            array('$match'      => array(
-                                'is_deleted'        => array('$ne' => 1))),
-                            array('$sort'       => array('translated_counter' => 1)),
-                            array('$limit'      => $config->display_items_per_page * 10)
+                            $data   = array_merge($untranslatedwords->toArray(), $translatedwords->toArray());
+                        }
+                        if ($config->display_items_per_page == 1) { $data = array($data); }
+
+                        Log::create(array(
+                            'user_id'       => $user_id,
+                            'origin_id'     => array_map(function($o) { return $o['_id']; }, $data),
+                            'action_type'   => 'retrieve',
+                            'raw_result'    => 'retrieve for translate',
                         ));
-                    });
-                    if ($translatedwords->count() > $config->display_items_per_page) { $translatedwords = $translatedwords->random($config->display_items_per_page); } else { $translatedwords = $translatedwords; }
 
-                    $result = array_merge($untranslatedwords->toArray(), $translatedwords->toArray());
+                        $selected_language  = $user->languages[array_rand($user->languages)];
+                        $result     = array(
+                            'language_id'   => $selected_language,
+                            'language_name' => Language::find($selected_language)->language_name,
+                            'data'          => array_values($data)
+                        );
+                } else { throw new \Exception("User with id $user_id not found.");
                 }
-
-                if ($config->display_items_per_page == 1) { $result = array($result); }
-                $result     = array_values($result);
             } catch (\Exception $e) {
                 $response   = "FAILED";
                 $statusCode = 400;
@@ -116,6 +132,13 @@ class GameController extends Controller {
                         if ($config->display_items_per_page == 1) { $data = array($data); }
 
                         $data           = array_values($data);
+                        Log::create(array(
+                            'user_id'       => $user_id,
+                            'translated_id' => array_map(function($o) { return $o['_id']; }, $data),
+                            'action_type'   => 'retrieve',
+                            'raw_result'    => 'retrieve for vote',
+                        ));
+
                         $origin_words   = OriginWord::whereIn('_id', array_map(function($o) { return $o['origin_word_id']; }, $data))->get(array('origin_word'))->pluck('origin_word', '_id')->toArray();
                         $result         = array(
                             'language_id'   => $selected_language,
@@ -185,6 +208,13 @@ class GameController extends Controller {
                         if ($config->display_items_per_page == 1) { $data = array($data); }
 
                         $data           = array_values($data);
+                        Log::create(array(
+                            'user_id'       => $user_id,
+                            'translated_id' => array_map(function($o) { return $o['_id']; }, $data),
+                            'action_type'   => 'retrieve',
+                            'raw_result'    => 'retrieve for alternate',
+                        ));
+
                         $origin_words   = OriginWord::whereIn('_id', array_map(function($o) { return $o['_id']; }, $data))->get(array('origin_word'))->pluck('origin_word', '_id')->toArray();
                         $result         = array(
                             'language_id'   => $selected_language,
@@ -249,12 +279,21 @@ class GameController extends Controller {
 
                         if ($category_items->count() > 3) { $category_items = $category_items->random(3); }
                         $category_items = array_values($category_items->toArray());
+                        $category_items = array_merge($category_items, $category->category_items->where('category_name', 'other')->toArray());
+
+                        Log::create(array(
+                            'user_id'           => $user_id,
+                            'translated_id'     => $data['_id'],
+                            'action_type'       => 'retrieve',
+                            'raw_result'        => 'retrieve for categorize',
+                            'category_items'    => array_map(function($o) { return $o['_id']; }, $category_items),
+                        ));
 
                         $result         = array(
                             'category'      => array(
                                 '_id'               => $category->_id,
                                 'category_group'    => $category->category_group,
-                                'category_items'    => array_merge($category_items, $category->category_items->where('category_name', 'other')->toArray()),
+                                'category_items'    => $category_items,
                             ),
                             'uncategorized' => array(
                                 'translated_id'     => $data['_id'],

@@ -4,7 +4,7 @@ app.controller('TranslateController', ['$scope', 'localStorageService', '$state'
     $('textarea.form_input_word').attr("tabIndex", -1).focus();
 
     $scope.language         = {};
-    $scope.words_list       = [];
+    $scope.translate_list   = [];
 
     $scope.placeholder      = "";
     $scope.disabled         = false;
@@ -23,7 +23,6 @@ app.controller('TranslateController', ['$scope', 'localStorageService', '$state'
             $scope.disabled         = true;
 
             var translation_array   = [];
-
             _.each($scope.translate_list, function(val, key) {
                 translation_array.push({
                     origin_id       : val._id,
@@ -42,7 +41,6 @@ app.controller('TranslateController', ['$scope', 'localStorageService', '$state'
                 if ((response.status_code == "200")) {
                     if (response.result !== 0) {
                         // Notification.info(messageHelper.gainPointMsg(response.result, "translating some word(s)"));
-
                         $scope.$parent.points += response.result;
                     } else {
                         Notification.warning(messageHelper.noPointMsg("didn't give any translation"));
@@ -56,6 +54,7 @@ app.controller('TranslateController', ['$scope', 'localStorageService', '$state'
     };
 
     $scope.skip = function () {
+        $scope.$parent.writeLog('skip', null, null, 'skip on translate', _.map($scope.translate_list, '_id'), null);
         $scope.$parent.refresh();
         fetcher.getRandomState(function(newPage) {
             if ($scope.$parent.activePage == newPage) {
@@ -67,21 +66,23 @@ app.controller('TranslateController', ['$scope', 'localStorageService', '$state'
     };
 
     var init    = function () {
-        fetcher.getUserLanguage(localStorageService.get('_id'), function (response) {
+        fetcher.getTranslate(localStorageService.get('_id'), function (response) {
             if ((response.status_code == "200") && (response.response == "OK")) {
-                $scope.language = _.sample(response.result);
-                $scope.head     = $sce.trustAsHtml(config.translateHead.replace("((language))", $scope.language.language_name));
+                $scope.translate_list       = response.result.data;
+                $scope.$parent.on_exit_id   = {
+                    origin_id       : _.map(response.result.data, '_id'),
+                    translated_id   : null,
+                    category_items  : null
+                };
 
-                $scope.placeholder      = "Type here in Bahasa " + $scope.language.language_name.capitalizeFirstLetter();
-                fetcher.getTranslate(function (response) {
-                    if ((response.status_code == "200") && (response.response == "OK")) {
-                        $scope.translate_list   = response.result;
-                    } else {
-                        Notification.error(messageHelper.massiveErrorMsg());
-                    }
-                });
+                $scope.language     = {
+                    _id             : response.result.language_id,
+                    language_name   : response.result.language_name,
+                };
+                $scope.head     = $sce.trustAsHtml(config.translateHead.replace("((language))", response.result.language_name));
+                $scope.placeholder  = "Type here in Bahasa " + response.result.language_name.capitalizeFirstLetter();
 
-                $scope.disabled = false;
+                $scope.disabled     = false;
             } else {
                 Notification.error(messageHelper.massiveErrorMsg());
             }

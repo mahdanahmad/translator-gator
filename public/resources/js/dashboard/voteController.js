@@ -38,6 +38,7 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
     }
 
     $scope.skip = function () {
+        $scope.$parent.writeLog('skip', null, null, 'skip on vote', null, _.map($scope.vote_list, 'translated_id'));
         $scope.$parent.refresh();
         fetcher.getRandomState(function(newPage) {
             if ($scope.$parent.activePage == newPage) {
@@ -82,8 +83,14 @@ app.controller('VoteController', ['$scope', 'localStorageService', '$state', '$s
                     };
                     $scope.disabled     = false;
                     $scope.vote_list    = response.result.data;
+
+                    $scope.$parent.on_exit_id   = {
+                        origin_id       : null,
+                        translated_id   : _.map(response.result.data, 'translated_id'),
+                        category_items  : null
+                    };
                 } else {
-                    $scope.$parent.activePage = 'translate';
+                    $scope.$parent.activePage   = 'translate';
                     $state.go('dashboard.translate');
                 }
             } else {

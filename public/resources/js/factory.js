@@ -94,8 +94,8 @@ app.factory('fetcher', ['$http', function($http) {
         postNewPassword : function(data, callback) {
             $http.post('api/users/newpassword', data).success(callback).error(callback);
         },
-        getTranslate : function(callback) {
-            $http.get('api/untranslated').success(callback).error(callback);
+        getTranslate : function(id, callback) {
+            $http.get('api/untranslated/' + id).success(callback).error(callback);
         },
         postTranslate : function(data, callback) {
             $http.post('api/translatedwords', data).success(callback).error(callback);
@@ -151,7 +151,9 @@ app.factory('fetcher', ['$http', function($http) {
                 headers: {'Content-Type': undefined}
             }).success(callback).error(callback);
         },
-
+        postLog : function(data, callback) {
+            $http.post('api/log', data).success(callback).error(callback);
+        }
     };
 }]);
 

@@ -119,8 +119,8 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('originwords','OriginWordController@store');
 
     // End point for game purpose
-    $app->get('untranslated','GameController@getUntranslated');
     $app->get('votewords/{user_id}','GameController@getNextVote');
+    $app->get('untranslated/{user_id}','GameController@getUntranslated');
     $app->get('alternatewords/{user_id}','GameController@getNextAlternate');
     $app->get('categorizewords/{user_id}','GameController@getNextCategorize');
     $app->post('votewords','GameController@storeVote');
@@ -135,4 +135,6 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('redeem', 'RedeemController@store');
     $app->get('redeem/{id}', 'RedeemController@show');
     $app->post('redeem/upload', 'RedeemController@bulkStatus');
+
+    $app->post('log','LogController@store');
 });

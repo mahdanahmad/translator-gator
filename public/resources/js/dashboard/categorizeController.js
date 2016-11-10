@@ -33,7 +33,7 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
 
             fetcher.postCategorize(data, function (response) {
                 if ((response.status_code == "200") && (response.response == "OK")) {
-                    //                Notification.info(messageHelper.gainPointMsg(response.result, "categorizing a word."));
+                    // Notification.info(messageHelper.gainPointMsg(response.result, "categorizing a word."));
                     $scope.$parent.points += response.result;
                 } else {
                     Notification.error(messageHelper.massiveErrorMsg());
@@ -46,6 +46,7 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
     }
 
     $scope.skip = function () {
+        $scope.$parent.writeLog('skip', null, null, 'skip on categorize', null, $scope.uncategorize_word.translated_id, _.map($scope.category_list.category_items, '_id'));
         $scope.$parent.refresh();
         fetcher.getRandomState(function(newPage) {
             if ($scope.$parent.activePage == newPage) {
@@ -68,6 +69,11 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
                     $scope.uncategorize_word    = response.result.uncategorized;
 
                     $scope.category_list.category_items = ($scope.category_list.category_items);
+                    $scope.$parent.on_exit_id   = {
+                        origin_id       : null,
+                        translated_id   : response.result.uncategorized.translated_id,
+                        category_items  : _.map(response.result.category.category_items, '_id')
+                    };
 
                     var minus = (3 - _.size($scope.category_list.category_items) % 3);
 
@@ -80,7 +86,7 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
 
                     $scope.disabled = false;
                 } else {
-                    $scope.$parent.activePage = 'translate';
+                    $scope.$parent.activePage   = 'translate';
                     $state.go('dashboard.translate');
                 }
             } else {
