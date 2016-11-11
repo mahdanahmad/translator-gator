@@ -23,9 +23,9 @@ class ConfigurationCollectionSeeder extends Seeder {
             'max_health'               => 5,
             'kick_time'                => 120,
             'is_on_translate'          => true,
-            'is_on_alternative'        => true,
-            'is_on_vote'               => true,
-            'is_on_categorize'         => true,
+            'is_on_alternative'        => false,
+            'is_on_vote'               => false,
+            'is_on_categorize'         => false,
             'point_value'              => 3,
             'redeem_time'              => false,
     	));
