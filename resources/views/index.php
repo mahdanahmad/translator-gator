@@ -87,10 +87,10 @@
         <!-- <div id="fb-root"></div> -->
         <div ui-view></div>
 
-        <!-- <script>
+        <script>
             window.fbAsyncInit = function() {
                 FB.init({
-                    appId      : '1013431635381749',
+                    appId      : <?php echo "'".env('FB_APP_ID','')."'";?>,
                     xfbml      : true,
                     version    : 'v2.5'
                 });
@@ -104,6 +104,6 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script> -->
+        <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
     </body>
 </html>
