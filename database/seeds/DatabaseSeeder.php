@@ -23,14 +23,5 @@ class DatabaseSeeder extends Seeder {
 
         $this->command->info("5. initialize all other Collections ...");
         $this->call('InitCollectionSeeder');
-
-        // $this->command->info("7. seeding Speaking collection create ...");
-        // $this->call('SpeaksCollectionSeeder');
-
-        // $this->command->info("8. seeding categorized collection create ...");
-        // $this->call('CategorizedCollectionSeeder');
-
-        // $this->command->info("9. seeding log create ...");
-        // $this->call('LogCollectionSeeder');
     }
 }

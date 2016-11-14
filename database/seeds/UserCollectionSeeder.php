@@ -20,7 +20,7 @@ class UserCollectionSeeder extends Seeder {
         DB::collection('users')->insert(array_map(function($o) {
             return array(
                 'username'        => $o[0],
-                'password'        => app('hash')->make($o[1]),
+                'password'        => app('hash')->make(sha1($o[1])),
                 'email'           => $o[2],
                 'facebook_id'     => '',
                 'twitter_id'      => '',
