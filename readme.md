@@ -69,7 +69,7 @@ For mail credential, please check __/config/services.php__ file and add the para
 ## Seeding
 
 
-You must initialize translator-gator database with [Laravel Database Seeder](https://laravel.com/docs/master/seeding). The files are located at __/database/seeds folder__. There are four files that you can change:
+You must initialize translator-gator database with [Laravel Database Seeder](https://laravel.com/docs/master/seeding). The files are located at __/database/seeds/__ folder. There are four files that you can change:
 * __CategoryCollectionSeeder.php__, to initialize categories and category_items collection
 * __ConfigurationCollectionSeeder.php__, to initialize configuration collection, if you’re not sure with the value, leave them be.
 * __LanguageCollectionSeeder.php__, change array $list to initialize available translation languages.
