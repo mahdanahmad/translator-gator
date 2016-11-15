@@ -63,7 +63,7 @@ FB_APP_ID={ID for facebook aplication, needed for fb share}
 ```
 
 
-For mail credential, please check __/config/services.php__ file and add the parameter to .env with your credential. Please direct the root folder for this project to __/public folder__ at your web server and ensure that rewrite module is working. All front-end library are accessed via cdn, so you don’t have to install anything.
+For mail credential, please check __/config/services.php__ file and add the parameter to .env with your credential. Please direct the root folder for this project to __/public/__  folder at your web server and ensure that rewrite module is working. All front-end library are accessed via cdn, so you don’t have to install anything.
 
 
 ## Seeding
@@ -76,7 +76,7 @@ You must initialize translator-gator database with [Laravel Database Seeder](htt
 * __UserCollectionSeeder.php__, to initialize admin account for translator-gator.
 
 
-Run ```[sudo] php artisan db:seed``` to seed your database. You can upload the origin words via words management on admin panel. The uploaded file must be a csv and each sentence must be written on separate line. And don’t forget to change __/storage folder__’s permission to 777 or the ownership to www-data if there’s an error when uploading file.
+Run ```[sudo] php artisan db:seed``` to seed your database. You can upload the origin words via words management on admin panel. The uploaded file must be a csv and each sentence must be written on separate line. And don’t forget to change __/storage/__ folder’s  permission to 777 or the ownership to www-data if there’s an error when uploading file.
 
 
 ## License
