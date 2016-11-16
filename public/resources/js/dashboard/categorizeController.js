@@ -1,4 +1,4 @@
-app.controller('CategorizeController', ['$scope', 'localStorageService', '$state', '$sce', 'fetcher', 'config', 'messageHelper', 'Notification', function ($scope, localStorageService, $state, $sce, fetcher, config, messageHelper, Notification) {
+app.controller('CategorizeController', ['$scope', 'localStorageService', '$sce', 'fetcher', 'config', 'messageHelper', 'Notification', function ($scope, localStorageService, $sce, fetcher, config, messageHelper, Notification) {
     'use strict';
 
     $scope.user_language        = [];
@@ -87,8 +87,9 @@ app.controller('CategorizeController', ['$scope', 'localStorageService', '$state
                     $scope.disabled = false;
                 } else {
                     $scope.$parent.activePage   = 'translate';
-                    $state.go('dashboard.translate');
                 }
+            } else if (response.message == 'Undefined index: _id') {
+                $scope.$parent.activePage   = 'translate';
             } else {
                 Notification.error(messageHelper.massiveErrorMsg());
             }

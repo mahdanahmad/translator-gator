@@ -1,4 +1,4 @@
-app.controller('AlternativeController', ['$scope', 'localStorageService', '$state', '$sce', 'fetcher', 'config', 'messageHelper', 'Notification', function ($scope, localStorageService, $state, $sce, fetcher, config, messageHelper, Notification) {
+app.controller('AlternativeController', ['$scope', 'localStorageService', '$sce', 'fetcher', 'config', 'messageHelper', 'Notification', function ($scope, localStorageService, $sce, fetcher, config, messageHelper, Notification) {
     'use strict';
 
     $scope.language         = {};
@@ -86,8 +86,9 @@ app.controller('AlternativeController', ['$scope', 'localStorageService', '$stat
                     };
                 } else {
                     $scope.$parent.activePage = 'translate';
-                    $state.go('dashboard.translate');
                 }
+            } else if (response.message == 'Undefined index: _id') {
+                $scope.$parent.activePage   = 'translate';
             } else {
                 Notification.error(messageHelper.massiveErrorMsg());
             }

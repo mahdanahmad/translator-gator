@@ -1,4 +1,4 @@
-app.controller('TranslateController', ['$scope', 'localStorageService', '$state', '$sce', 'fetcher', 'config', 'messageHelper', 'Notification', function ($scope, localStorageService, $state, $sce, fetcher, config, messageHelper, Notification) {
+app.controller('TranslateController', ['$scope', 'localStorageService', '$sce', 'fetcher', 'config', 'messageHelper', 'Notification', function ($scope, localStorageService, $sce, fetcher, config, messageHelper, Notification) {
     'use strict';
 
     $('textarea.form_input_word').attr("tabIndex", -1).focus();
